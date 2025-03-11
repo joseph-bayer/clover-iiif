@@ -336,6 +336,14 @@ export function removeOverlaysFromViewer(
   const elements = document.querySelectorAll(overlaySelector);
   if (elements) {
     elements.forEach((element) => viewer.removeOverlay(element));
+
+    // Point annotations need to be removed differently since they are added to the viewer's container, not the viewer itself
+    const remainingElements = document.querySelectorAll(overlaySelector);
+    if (remainingElements) {
+      remainingElements.forEach((element) => {
+        element.remove();
+      });
+    }
   }
 }
 
