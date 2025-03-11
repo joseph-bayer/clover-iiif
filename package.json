@@ -59,7 +59,7 @@
     "start": "next start",
     "test": "vitest",
     "typecheck": "tsc --incremental --noEmit",
-    "prepare": "husky install"
+    "prepare": "husky install && npm run build"
   },
   "repository": {
     "type": "git",
