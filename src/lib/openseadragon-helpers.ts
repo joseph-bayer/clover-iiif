@@ -49,13 +49,7 @@ export function addOverlaysToViewer(
 
     if (point) {
       const { x, y } = point;
-      const svg = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="${x}" cy="${y}" r="20" />
-        </svg>
-      `;
-
-      addSvgOverlay(viewer, svg, configOptions, scale, overlaySelector);
+      addPointOverlay(viewer, x, y, configOptions, overlaySelector);
     }
 
     if (svg) {
@@ -128,6 +122,65 @@ function addRectangularOverlay(
   }
 
   viewer.addOverlay(div, rect);
+}
+
+// CUSTOM: Make contribution to official library
+// Add a point overlay that stays the same size on zoom/pan
+function addPointOverlay(
+  viewer: OpenSeadragon.Viewer,
+  x: number,
+  y: number,
+  configOptions: OverlayOptions,
+  overlaySelector: string,
+) {
+  // Fixed size for the overlay (in pixels)
+  const overlaySize = 20; // Example size in pixels
+
+  // Create a div for the overlay
+  const overlayElement = document.createElement("div");
+  overlayElement.style.width = `${overlaySize}px`;
+  overlayElement.style.height = `${overlaySize}px`;
+  overlayElement.style.borderRadius = "50%"; // Make it a circle
+  overlayElement.style.position = "absolute";
+  overlayElement.className = overlaySelector;
+
+  if (configOptions) {
+    const { backgroundColor, opacity, borderType, borderColor, borderWidth } =
+      configOptions;
+    overlayElement.style.backgroundColor = backgroundColor as string;
+    overlayElement.style.opacity = opacity as string;
+    overlayElement.style.outline = `${borderWidth} ${borderType} ${borderColor}`;
+  } else {
+    // Apply default styling
+    overlayElement.style.backgroundColor = "rgba(255, 0, 0, 1)"; // Example styling]
+    overlayElement.style.outline = "10px solid rgba(255, 0, 0, 0.5)";
+  }
+
+  // Append the overlay to the viewer's container.
+  // By attaching it to the container instead of the viewer itself, the overlay will stay the same size and in the correct place when the viewer is zoomed.
+  viewer.container.appendChild(overlayElement);
+
+  // Keep overlay in the correct position on zoom/pan
+  const updateOverlayPosition = () => {
+    // Convert the image coordinates to viewport coordinates
+    const viewportPoint = viewer.viewport.imageToViewportCoordinates(
+      new OpenSeadragon.Point(x, y),
+    );
+
+    // Convert viewport coordinates to pixel coordinates in the viewer's container
+    const pixelPoint =
+      viewer.viewport.viewportToViewerElementCoordinates(viewportPoint);
+
+    // Position the overlay absolutely in the viewer's container
+    overlayElement.style.left = `${pixelPoint.x - overlaySize / 2}px`; // Center the overlay
+    overlayElement.style.top = `${pixelPoint.y - overlaySize / 2}px`; // Center the overlay
+  };
+
+  // Update the overlay position on zoom/pan
+  viewer.addHandler("viewport-change", updateOverlayPosition);
+
+  // Initial position update
+  updateOverlayPosition();
 }
 
 function convertSVGStringToHTML(svgString) {
