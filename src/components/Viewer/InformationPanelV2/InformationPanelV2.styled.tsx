@@ -1,6 +1,7 @@
+import React from "react";
 import { styled } from "src/styles/stitches.config";
 
-export const Panel = styled("div", {
+const Panel = styled("div", {
   position: "absolute",
   left: "50px",
   top: "50px",
@@ -15,7 +16,7 @@ export const Panel = styled("div", {
   overflowY: "auto",
 });
 
-export const CloseButton = styled("div", {
+const CloseButton = styled("div", {
   position: "absolute",
   right: "10px",
   top: "10px",
@@ -36,7 +37,7 @@ export const CloseButton = styled("div", {
   },
 });
 
-export const CloseIcon = styled("span", {
+const CloseIcon = styled("span", {
   color: "white",
   fontSize: "20px",
   lineHeight: "1",
@@ -46,3 +47,5 @@ export const CloseIcon = styled("span", {
     color: "black",
   },
 });
+
+export { Panel, CloseButton, CloseIcon };
