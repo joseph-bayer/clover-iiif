@@ -22,27 +22,27 @@ export const CloseButton = styled("div", {
   width: "30px",
   height: "30px",
   borderRadius: "50%",
-  border: "2px solid white", // Outline for default state
-  backgroundColor: "transparent", // Transparent background for default state
+  border: "2px solid white",
+  backgroundColor: "transparent",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   cursor: "pointer",
-  transition: "background-color 0.2s ease, border-color 0.2s ease", // Smooth transition for hover effect
+  transition: "background-color 0.2s ease, border-color 0.2s ease",
 
   "&:hover": {
-    backgroundColor: "white", // Solid white background on hover
-    borderColor: "white", // Ensure border color matches background on hover
+    backgroundColor: "white",
+    borderColor: "white",
   },
 });
 
 export const CloseIcon = styled("span", {
-  color: "white", // White "×" for default state
+  color: "white",
   fontSize: "20px",
   lineHeight: "1",
   transition: "color 0.2s ease", // Smooth transition for hover effect
 
   [`${CloseButton}:hover &`]: {
-    color: "black", // Black "×" on hover
+    color: "black",
   },
 });

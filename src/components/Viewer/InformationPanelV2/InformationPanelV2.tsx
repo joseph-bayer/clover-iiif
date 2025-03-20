@@ -1,5 +1,6 @@
-import { AnnotationNormalized } from "@iiif/presentation-3";
 import React, { useEffect, useState } from "react";
+
+import { AnnotationNormalized } from "@iiif/presentation-3";
 import { useViewerState } from "src/context/viewer-context";
 import { CloseButton, CloseIcon, Panel } from "./InformationPanelV2.styled";
 
@@ -7,9 +8,9 @@ interface InformationPanelV2Props {
   annotations: Array<AnnotationNormalized>;
 }
 
-export default function InformationPanelV2({
+export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   annotations,
-}: InformationPanelV2Props) {
+}) => {
   const { selectedAnnotationId } = useViewerState();
   const [selectedAnnotation, setSelectedAnnotation] =
     useState<AnnotationNormalized | null>(null);
@@ -41,4 +42,6 @@ export default function InformationPanelV2({
       <div>{JSON.stringify(selectedAnnotation, null, 2)}</div>
     </Panel>
   );
-}
+};
+
+export default InformationPanelV2;
