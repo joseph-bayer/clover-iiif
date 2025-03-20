@@ -1,24 +1,23 @@
 import {
+  AnnotationNormalized,
   AnnotationPageNormalized,
   Canvas,
   IIIFExternalWebResource,
 } from "@iiif/presentation-3";
 import { AnnotationResource, AnnotationResources } from "src/types/annotations";
 import {
-  Aside,
-  CollapsibleContent,
   CollapsibleTrigger,
   Content,
   Main,
   MediaWrapper,
 } from "src/components/Viewer/Viewer/Viewer.styled";
 
-import InformationPanel from "src/components/Viewer/InformationPanel/InformationPanel";
 import Media from "src/components/Viewer/Media/Media";
 import Painting from "../Painting/Painting";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useViewerState } from "src/context/viewer-context";
+import InformationPanelV2 from "../InformationPanelV2/InformationPanelV2";
 
 export interface ViewerContentProps {
   activeCanvas: string;
@@ -31,17 +30,18 @@ export interface ViewerContentProps {
   painting: IIIFExternalWebResource[];
   items: Canvas[];
   isAudioVideo: boolean;
+  annotations: Array<AnnotationNormalized>;
+  handleAnnotationClickCallback: any; // TODO: type
 }
 
 const ViewerContent: React.FC<ViewerContentProps> = ({
   activeCanvas,
   annotationResources,
-  searchServiceUrl,
-  setContentSearchResource,
-  contentSearchResource,
   isAudioVideo,
   items,
   painting,
+  annotations,
+  handleAnnotationClickCallback,
 }) => {
   const { t } = useTranslation();
   const { isInformationOpen, configOptions } = useViewerState();
@@ -54,11 +54,10 @@ const ViewerContent: React.FC<ViewerContentProps> = ({
 
   const isAside = informationPanel?.renderAbout && isInformationOpen;
 
-  const isForcedAside =
-    informationPanel?.renderAnnotation &&
-    annotationResources.length > 0 &&
-    !informationPanel.open;
-
+  // const isForcedAside =
+  //   informationPanel?.renderAnnotation &&
+  //   annotationResources.length > 0 &&
+  //   !informationPanel.open;
   return (
     <Content
       className="clover-viewer-content"
@@ -70,6 +69,8 @@ const ViewerContent: React.FC<ViewerContentProps> = ({
           annotationResources={annotationResources}
           isMedia={isAudioVideo}
           painting={painting}
+          annotations={annotations}
+          handleAnnotationClickCallback={handleAnnotationClickCallback}
         />
 
         {isAside && (
@@ -84,19 +85,23 @@ const ViewerContent: React.FC<ViewerContentProps> = ({
           </MediaWrapper>
         )}
       </Main>
-      {(isAside || isForcedAside) && (
-        <Aside>
-          <CollapsibleContent>
-            <InformationPanel
-              activeCanvas={activeCanvas}
-              annotationResources={annotationResources}
-              searchServiceUrl={searchServiceUrl}
-              setContentSearchResource={setContentSearchResource}
-              contentSearchResource={contentSearchResource}
-            />
-          </CollapsibleContent>
-        </Aside>
-      )}
+
+      <InformationPanelV2 annotations={annotations} />
+      {/* {isAside ||
+        (isForcedAside && (
+          // TODO: make aside float over Painting
+          <Aside>
+            <CollapsibleContent>
+              <InformationPanel
+                activeCanvas={activeCanvas}
+                annotationResources={annotationResources}
+                searchServiceUrl={searchServiceUrl}
+                setContentSearchResource={setContentSearchResource}
+                contentSearchResource={contentSearchResource}
+              />
+            </CollapsibleContent>
+          </Aside>
+        ))} */}
     </Content>
   );
 };

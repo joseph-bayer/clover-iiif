@@ -9,7 +9,6 @@ import ImageViewer from "src/components/Image";
 import { LabeledIIIFExternalWebResource } from "src/types/presentation-3";
 import PaintingPlaceholder from "./Placeholder";
 import Player from "src/components/Viewer/Player/Player";
-import Toggle from "./Toggle";
 import {
   addOverlaysToViewer,
   removeOverlaysFromViewer,
@@ -21,6 +20,8 @@ interface PaintingProps {
   annotationResources: AnnotationResources;
   isMedia: boolean;
   painting: LabeledIIIFExternalWebResource[];
+  annotations: Array<AnnotationNormalized>;
+  handleAnnotationClickCallback: any; // TODO: type
 }
 
 const Painting: React.FC<PaintingProps> = ({
@@ -28,6 +29,8 @@ const Painting: React.FC<PaintingProps> = ({
   annotationResources,
   isMedia,
   painting,
+  annotations,
+  handleAnnotationClickCallback,
 }) => {
   const [annotationIndex, setAnnotationIndex] = React.useState<number>(0);
   const [isInteractive, setIsInteractive] = React.useState(false);
@@ -37,6 +40,7 @@ const Painting: React.FC<PaintingProps> = ({
     openSeadragonViewer,
     vault,
     viewerId,
+    selectedAnnotationId,
   } = useViewerState();
   const dispatch: any = useViewerDispatch();
 
@@ -46,8 +50,6 @@ const Painting: React.FC<PaintingProps> = ({
   const hasChoice = Boolean(painting?.length > 1);
   const showPlaceholder = placeholderCanvas && !isInteractive && !isMedia;
   const instanceId = `${viewerId}-${hashCode(activeCanvas + annotationIndex)}`;
-
-  const handleToggle = () => setIsInteractive(!isInteractive);
 
   const handleChoiceChange = (value) => {
     const index = painting.findIndex((resource) => resource.id === value);
@@ -72,13 +74,6 @@ const Painting: React.FC<PaintingProps> = ({
     return match;
   });
 
-  /** Retrieve annotations from Vault */
-  const annotations: Array<AnnotationNormalized> = [];
-  annotationResources[0]?.items?.forEach((item) => {
-    const annotationResource = vault.get(item.id);
-    annotations.push(annotationResource as unknown as AnnotationNormalized);
-  });
-
   /** Draw annotation overlays */
   useEffect(() => {
     if (
@@ -86,16 +81,29 @@ const Painting: React.FC<PaintingProps> = ({
       openSeadragonViewer &&
       configOptions.annotationOverlays?.renderOverlays
     ) {
-      removeOverlaysFromViewer(openSeadragonViewer, "annotation-overlay");
+      removeOverlaysFromViewer(
+        openSeadragonViewer,
+        "annotation-overlay",
+        handleAnnotationClickCallback,
+      );
       addOverlaysToViewer(
         openSeadragonViewer,
         normalizedCanvas,
         configOptions.annotationOverlays,
         annotations,
         "annotation-overlay",
+        handleAnnotationClickCallback,
+        selectedAnnotationId,
       );
     }
-  }, [normalizedCanvas, annotations, openSeadragonViewer, configOptions]);
+  }, [
+    normalizedCanvas,
+    annotations,
+    openSeadragonViewer,
+    configOptions,
+    selectedAnnotationId,
+    handleAnnotationClickCallback,
+  ]);
 
   /** Update OpenSeadragon Viewer in viewer context */
   const handleOpenSeadragonCallback = (viewer) => {
@@ -122,13 +130,6 @@ const Painting: React.FC<PaintingProps> = ({
               : configOptions.canvasHeight,
         }}
       >
-        {placeholderCanvas && !isMedia && (
-          <Toggle
-            handleToggle={handleToggle}
-            isInteractive={isInteractive}
-            isMedia={isMedia}
-          />
-        )}
         {showPlaceholder && !isMedia && (
           <PaintingPlaceholder
             isMedia={isMedia}

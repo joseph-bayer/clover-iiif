@@ -23,6 +23,8 @@ export function addOverlaysToViewer(
   configOptions: OverlayOptions,
   annotations: Annotation[] | AnnotationNormalized[],
   overlaySelector: string,
+  handleAnnotationClickCallback: any,
+  selectedAnnotationId?: string,
 ): void {
   if (!viewer) return;
 
@@ -49,7 +51,16 @@ export function addOverlaysToViewer(
 
     if (point) {
       const { x, y } = point;
-      addPointOverlay(viewer, x, y, configOptions, overlaySelector);
+      addPointOverlay(
+        viewer,
+        x,
+        y,
+        configOptions,
+        overlaySelector,
+        annotation,
+        handleAnnotationClickCallback,
+        selectedAnnotationId,
+      );
     }
 
     if (svg) {
@@ -132,28 +143,39 @@ function addPointOverlay(
   y: number,
   configOptions: OverlayOptions,
   overlaySelector: string,
+  annotation: Annotation | AnnotationNormalized,
+  handleAnnotationClickCallback: any,
+  selectedAnnotationId?: string,
 ) {
   // Fixed size for the overlay (in pixels)
   const overlaySize = 20; // Example size in pixels
 
   // Create a div for the overlay
-  const overlayElement = document.createElement("div");
+  const overlayElement = document.createElement("button");
   overlayElement.style.width = `${overlaySize}px`;
   overlayElement.style.height = `${overlaySize}px`;
   overlayElement.style.borderRadius = "50%"; // Make it a circle
   overlayElement.style.position = "absolute";
   overlayElement.className = overlaySelector;
+  overlayElement.id = annotation.id;
+  overlayElement.addEventListener("click", () => {
+    handleAnnotationClickCallback(annotation.id);
+  });
 
-  if (configOptions) {
-    const { backgroundColor, opacity, borderType, borderColor, borderWidth } =
-      configOptions;
-    overlayElement.style.backgroundColor = backgroundColor as string;
-    overlayElement.style.opacity = opacity as string;
-    overlayElement.style.outline = `${borderWidth} ${borderType} ${borderColor}`;
+  const { backgroundColor, opacity, borderType, borderColor, borderWidth } =
+    configOptions;
+
+  overlayElement.style.opacity = opacity as string;
+  overlayElement.style.border = "2px solid white";
+  overlayElement.style.outlineOffset = "0";
+
+  if (annotation.id === selectedAnnotationId) {
+    // TODO: add to config
+    overlayElement.style.backgroundColor = "rgba(249, 207, 72, 1)";
+    overlayElement.style.outline = `${borderWidth} ${borderType} rgba(249, 208, 71, 0.7)`;
   } else {
-    // Apply default styling
-    overlayElement.style.backgroundColor = "rgba(255, 0, 0, 1)"; // Example styling]
-    overlayElement.style.outline = "10px solid rgba(255, 0, 0, 0.5)";
+    overlayElement.style.backgroundColor = backgroundColor as string;
+    overlayElement.style.outline = `${borderWidth} ${borderType} ${borderColor}`;
   }
 
   // Append the overlay to the viewer's container.
@@ -327,6 +349,7 @@ export const parseSrc = (src: string, isTiledImage: boolean) => {
 export function removeOverlaysFromViewer(
   viewer: OpenSeadragon.Viewer,
   overlaySelector: string,
+  clickHandlerToRemove: any,
 ) {
   if (!viewer) return;
 
@@ -335,7 +358,10 @@ export function removeOverlaysFromViewer(
   }
   const elements = document.querySelectorAll(overlaySelector);
   if (elements) {
-    elements.forEach((element) => viewer.removeOverlay(element));
+    elements.forEach((element) => {
+      element.removeEventListener("click", clickHandlerToRemove);
+      viewer.removeOverlay(element);
+    });
 
     // Point annotations need to be removed differently since they are added to the viewer's container, not the viewer itself
     const remainingElements = document.querySelectorAll(overlaySelector);
@@ -368,6 +394,8 @@ export function addContentSearchOverlays(
   openSeadragonViewer,
   canvas: CanvasNormalized,
   configOptions: ViewerConfigOptions,
+  handleAnnotationClickCallback: any,
+  selectedAnnotationId: string,
 ) {
   if (!contentSearch?.items) return;
   if (contentSearch?.items.length === 0) return;
@@ -390,6 +418,8 @@ export function addContentSearchOverlays(
       configOptions.contentSearch.overlays,
       annotations,
       "content-search-overlay",
+      handleAnnotationClickCallback,
+      selectedAnnotationId,
     );
   }
 }

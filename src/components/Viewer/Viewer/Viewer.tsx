@@ -2,6 +2,7 @@ import * as Collapsible from "@radix-ui/react-collapsible";
 
 import { AnnotationResource, AnnotationResources } from "src/types/annotations";
 import {
+  AnnotationNormalized,
   CanvasNormalized,
   ExternalResourceTypes,
   InternationalString,
@@ -57,6 +58,7 @@ const Viewer: React.FC<ViewerProps> = ({
     contentSearchVault,
     configOptions,
     openSeadragonViewer,
+    selectedAnnotationId,
   } = viewerState;
 
   const absoluteCanvasHeights = ["100%", "auto"];
@@ -88,6 +90,21 @@ const Viewer: React.FC<ViewerProps> = ({
     },
     [viewerDispatch],
   );
+
+  /** Retrieve annotations from Vault */
+  const annotations: Array<AnnotationNormalized> = [];
+  annotationResources[0]?.items?.forEach((item) => {
+    const annotationResource = vault.get(item.id);
+    annotations.push(annotationResource as unknown as AnnotationNormalized);
+  });
+
+  /** Update Selected Annotation in viewer context */
+  const handleAnnotationClickCallback = (annotationId: string) => {
+    viewerDispatch({
+      type: "updateSelectedAnnotation",
+      selectedAnnotationId: annotationId,
+    });
+  };
 
   useEffect(() => {
     if (configOptions?.informationPanel?.open) {
@@ -173,13 +190,19 @@ const Viewer: React.FC<ViewerProps> = ({
       type: "Canvas",
     }) as CanvasNormalized;
 
-    removeOverlaysFromViewer(openSeadragonViewer, "content-search-overlay");
+    removeOverlaysFromViewer(
+      openSeadragonViewer,
+      "content-search-overlay",
+      handleAnnotationClickCallback,
+    );
     addContentSearchOverlays(
       contentSearchVault,
       contentSearchResource,
       openSeadragonViewer,
       canvas,
       configOptions,
+      handleAnnotationClickCallback,
+      selectedAnnotationId ?? "",
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openSeadragonViewer, contentSearchResource]);
@@ -211,6 +234,8 @@ const Viewer: React.FC<ViewerProps> = ({
             contentSearchResource={contentSearchResource}
             items={manifest.items}
             isAudioVideo={isAudioVideo}
+            annotations={annotations}
+            handleAnnotationClickCallback={handleAnnotationClickCallback}
           />
         </Collapsible.Root>
       </Wrapper>

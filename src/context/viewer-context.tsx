@@ -77,11 +77,11 @@ const defaultAutoScrollSettings: AutoScrollSettings = {
 
 const defaultConfigOptions = {
   annotationOverlays: {
-    backgroundColor: "#6666ff",
-    borderColor: "#000099",
+    backgroundColor: "rgba(209, 99, 58, 1)",
+    borderColor: "rgba(209, 99, 58, 0.5)",
     borderType: "solid",
-    borderWidth: "1px",
-    opacity: "0.5",
+    borderWidth: "6px",
+    opacity: "1",
     renderOverlays: true,
     zoomLevel: 2,
   },
@@ -174,6 +174,7 @@ export interface ViewerContextStore {
   contentSearchVault: Vault;
   openSeadragonViewer: OpenSeadragon.Viewer | null;
   openSeadragonId?: string;
+  selectedAnnotationId?: string;
   viewerId?: string;
 }
 
@@ -193,6 +194,7 @@ export interface ViewerAction {
   contentSearchVault: Vault;
   openSeadragonViewer: OpenSeadragon.Viewer;
   viewerId: string;
+  selectedAnnotationId?: string;
 }
 
 export function expandAutoScrollOptions(
@@ -316,6 +318,12 @@ function viewerReducer(state: ViewerContextStore, action: ViewerAction) {
       return {
         ...state,
         openSeadragonViewer: action.openSeadragonViewer,
+      };
+    }
+    case "updateSelectedAnnotation": {
+      return {
+        ...state,
+        selectedAnnotationId: action.selectedAnnotationId,
       };
     }
     case "updateViewerId": {

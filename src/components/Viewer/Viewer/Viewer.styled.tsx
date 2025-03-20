@@ -12,6 +12,7 @@ const Content = styled("div", {
   flexDirection: "row",
   flexGrow: "1",
   overflow: "hidden",
+  position: "relative",
 
   "@sm": {
     flexDirection: "column",
