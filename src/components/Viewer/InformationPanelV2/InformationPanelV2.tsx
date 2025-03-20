@@ -1,8 +1,7 @@
 import { AnnotationNormalized } from "@iiif/presentation-3";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useViewerState } from "src/context/viewer-context";
 import { CloseButton, CloseIcon, Panel } from "./InformationPanelV2.styled";
-import React from "react";
 
 interface InformationPanelV2Props {
   annotations: Array<AnnotationNormalized>;
