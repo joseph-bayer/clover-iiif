@@ -1,4 +1,3 @@
-import React from "react";
 import { styled } from "src/styles/stitches.config";
 
 const Panel = styled("div", {

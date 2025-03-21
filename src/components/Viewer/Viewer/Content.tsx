@@ -14,10 +14,10 @@ import {
 
 import Media from "src/components/Viewer/Media/Media";
 import Painting from "../Painting/Painting";
+import InformationPanelV2 from "../InformationPanelV2/InformationPanelV2";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useViewerState } from "src/context/viewer-context";
-import InformationPanelV2 from "../InformationPanelV2/InformationPanelV2";
 
 export interface ViewerContentProps {
   activeCanvas: string;
