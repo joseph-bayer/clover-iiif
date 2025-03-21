@@ -1,8 +1,8 @@
-// import {
-//   CloseButton,
-//   CloseIcon,
-//   Panel,
-// } from "src/components/Viewer/InformationPanelV2/InformationPanelV2.styled";
+import {
+  CloseButton,
+  CloseIcon,
+  Panel,
+} from "src/components/Viewer/InformationPanelV2/InformationPanelV2.styled";
 import React, { useEffect, useState } from "react";
 import { AnnotationNormalized } from "@iiif/presentation-3";
 import { useViewerState } from "src/context/viewer-context";
@@ -35,15 +35,15 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   }
 
   return (
-    // <Panel>
-    //   {/* TODO: closeHandler */}
-    //   <CloseButton>
-    //     {/* TODO: svg? */}
-    //     <CloseIcon>×</CloseIcon>
-    //   </CloseButton>
-    // <div>InformationPanelV2</div>
-    <div>{JSON.stringify(selectedAnnotation, null, 2)}</div>
-    // </Panel>
+    <Panel>
+      {/* TODO: closeHandler */}
+      <CloseButton>
+        {/* TODO: svg? */}
+        <CloseIcon>×</CloseIcon>
+      </CloseButton>
+      <div>InformationPanelV2</div>
+      <div>{JSON.stringify(selectedAnnotation, null, 2)}</div>
+    </Panel>
   );
 };
 
