@@ -73,6 +73,7 @@ export function createOpenSeadragonRect(
   canvas: CanvasNormalized,
   parsedAnnotationTarget: ParsedAnnotationTarget,
   zoomLevel: number,
+  xOffset: number = 0,
 ) {
   let x,
     y,
@@ -98,7 +99,7 @@ export function createOpenSeadragonRect(
 
   const scale = 1 / canvas.width;
   const rect = new OpenSeadragon.Rect(
-    x * scale - ((w * scale) / 2) * (zoomLevel - 1),
+    x * scale + xOffset * scale - ((w * scale) / 2) * (zoomLevel - 1),
     y * scale - ((h * scale) / 2) * (zoomLevel - 1),
     w * scale * zoomLevel,
     h * scale * zoomLevel,
@@ -373,7 +374,13 @@ export function removeOverlaysFromViewer(
   }
 }
 
-export function panToTarget(openSeadragonViewer, zoomLevel, target, canvas) {
+export function panToTarget(
+  openSeadragonViewer,
+  zoomLevel,
+  target,
+  canvas,
+  xOffset = 0,
+) {
   const parsedAnnotationTarget = parseAnnotationTarget(target);
 
   const { point, rect, svg } = parsedAnnotationTarget;
@@ -383,6 +390,7 @@ export function panToTarget(openSeadragonViewer, zoomLevel, target, canvas) {
       canvas,
       parsedAnnotationTarget,
       zoomLevel,
+      xOffset,
     );
     openSeadragonViewer?.viewport.fitBounds(rect);
   }

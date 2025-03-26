@@ -115,7 +115,7 @@ const Viewer: React.FC<ViewerProps> = ({
     const annotation = annotations.find(
       (annotation) => annotation.id === annotationId,
     )?.target;
-    panToTarget(openSeadragonViewer, zoomLevel, annotation, canvas);
+    panToTarget(openSeadragonViewer, zoomLevel, annotation, canvas, -40);
   };
 
   useEffect(() => {
