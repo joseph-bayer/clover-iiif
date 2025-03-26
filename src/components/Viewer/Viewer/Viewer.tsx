@@ -16,6 +16,7 @@ import {
 } from "src/context/viewer-context";
 import {
   addContentSearchOverlays,
+  panToTarget,
   removeOverlaysFromViewer,
 } from "src/lib/openseadragon-helpers";
 import {
@@ -104,6 +105,17 @@ const Viewer: React.FC<ViewerProps> = ({
       type: "updateSelectedAnnotation",
       selectedAnnotationId: annotationId,
     });
+
+    // Pan to the selected annotation
+    const canvas = vault.get({
+      id: activeCanvas,
+      type: "Canvas",
+    }) as CanvasNormalized;
+    const zoomLevel = configOptions.contentSearch?.overlays?.zoomLevel || 1;
+    const annotation = annotations.find(
+      (annotation) => annotation.id === annotationId,
+    )?.target;
+    panToTarget(openSeadragonViewer, zoomLevel, annotation, canvas);
   };
 
   useEffect(() => {
