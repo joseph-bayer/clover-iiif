@@ -5,7 +5,7 @@ import {
 } from "src/components/Viewer/InformationPanelV2/InformationPanelV2.styled";
 import React, { useEffect, useState } from "react";
 import { AnnotationNormalized } from "@iiif/presentation-3";
-import { useViewerState } from "src/context/viewer-context";
+import { useViewerDispatch, useViewerState } from "src/context/viewer-context";
 
 interface InformationPanelV2Props {
   annotations: Array<AnnotationNormalized>;
@@ -18,6 +18,8 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   const [selectedAnnotation, setSelectedAnnotation] =
     useState<AnnotationNormalized | null>(null);
 
+  const viewerDispatch: any = useViewerDispatch();
+
   useEffect(() => {
     if (selectedAnnotationId) {
       const selectedAnnotation = annotations.find(
@@ -29,6 +31,14 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
     }
   }, [selectedAnnotationId, annotations]);
 
+  const onClose = () => {
+    viewerDispatch({
+      type: "updateSelectedAnnotation",
+      selectedAnnotationId: null,
+    });
+    // TODO: reset to default zoom?
+  };
+
   // Don't show panel if no annotation is selected
   if (!selectedAnnotation) {
     return null;
@@ -36,8 +46,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
 
   return (
     <Panel>
-      {/* TODO: closeHandler */}
-      <CloseButton>
+      <CloseButton onClick={onClose}>
         {/* TODO: svg? */}
         <CloseIcon>×</CloseIcon>
       </CloseButton>

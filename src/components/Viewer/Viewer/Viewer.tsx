@@ -111,11 +111,11 @@ const Viewer: React.FC<ViewerProps> = ({
       id: activeCanvas,
       type: "Canvas",
     }) as CanvasNormalized;
-    const zoomLevel = configOptions.contentSearch?.overlays?.zoomLevel || 1;
+    const zoomLevel = configOptions.annotationOverlays?.zoomLevel || 1;
     const annotation = annotations.find(
       (annotation) => annotation.id === annotationId,
     )?.target;
-    panToTarget(openSeadragonViewer, zoomLevel, annotation, canvas, -40);
+    panToTarget(openSeadragonViewer, zoomLevel, annotation, canvas, -200);
   };
 
   useEffect(() => {

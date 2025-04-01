@@ -129,6 +129,7 @@ const Controls = ({
           </Button>
         </>
       )}
+      {/* TODO: Figure out how to programatically reset */}
       {config.showHomeControl && (
         <Button id={config.homeButton as string} label="reset">
           <Reset />
