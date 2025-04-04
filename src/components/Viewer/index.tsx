@@ -22,9 +22,11 @@ import {
   getActiveManifest,
 } from "src/lib/iiif";
 import { ContentSearchQuery } from "src/types/annotations";
+import { Viewer as OSDViewer } from "openseadragon";
 
 export interface CloverViewerProps {
   canvasIdCallback?: (arg0: string) => void;
+  openSeadragonInstanceCallback?: (arg0: OSDViewer) => void;
   customDisplays?: Array<CustomDisplay>;
   plugins?: Array<PluginConfig>;
   customTheme?: any;
@@ -37,6 +39,7 @@ export interface CloverViewerProps {
 
 const CloverViewer: React.FC<CloverViewerProps> = ({
   canvasIdCallback = () => {},
+  openSeadragonInstanceCallback,
   customDisplays = [],
   plugins = [],
   customTheme,
@@ -80,6 +83,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
       <RenderViewer
         iiifContent={iiifResource}
         canvasIdCallback={canvasIdCallback}
+        openSeadragonInstanceCallback={openSeadragonInstanceCallback}
         customTheme={customTheme}
         options={options}
         iiifContentSearchQuery={iiifContentSearchQuery}
@@ -90,6 +94,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
 
 const RenderViewer: React.FC<CloverViewerProps> = ({
   canvasIdCallback,
+  openSeadragonInstanceCallback,
   customTheme,
   iiifContent,
   options,
@@ -102,7 +107,8 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
    * the normalized manifest available from @iiif/helpers/vault.
    */
   const store = useViewerState();
-  const { activeCanvas, activeManifest, isLoaded, vault } = store;
+  const { activeCanvas, activeManifest, isLoaded, vault, openSeadragonViewer } =
+    store;
   const [iiifResource, setIiifResource] = useState<
     CollectionNormalized | ManifestNormalized
   >();
@@ -186,6 +192,12 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
       });
     }
   }, [dispatch, iiifContent, iiifResource]);
+
+  useEffect(() => {
+    if (openSeadragonViewer && openSeadragonInstanceCallback) {
+      openSeadragonInstanceCallback(openSeadragonViewer);
+    }
+  }, [openSeadragonViewer, openSeadragonInstanceCallback]);
 
   /**
    * Render loading component while manifest is fetched and
