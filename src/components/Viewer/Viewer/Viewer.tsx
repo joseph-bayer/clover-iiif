@@ -2,6 +2,7 @@ import * as Collapsible from "@radix-ui/react-collapsible";
 
 import { AnnotationResource, AnnotationResources } from "src/types/annotations";
 import {
+  Annotation,
   AnnotationNormalized,
   CanvasNormalized,
   ExternalResourceTypes,
@@ -60,6 +61,7 @@ const Viewer: React.FC<ViewerProps> = ({
     configOptions,
     openSeadragonViewer,
     selectedAnnotationId,
+    unVaultedIIIFContent,
   } = viewerState;
 
   const absoluteCanvasHeights = ["100%", "auto"];
@@ -95,7 +97,11 @@ const Viewer: React.FC<ViewerProps> = ({
   /** Retrieve annotations from Vault */
   const annotations: Array<AnnotationNormalized> = [];
   annotationResources[0]?.items?.forEach((item) => {
-    const annotationResource = vault.get(item.id);
+    // Hack: The vault removes data from annotations for some reason. We are using unVaultedIIIFContent so we know that we have all the data we need
+    const annotationResource =
+      unVaultedIIIFContent?.annotations?.[0].items?.find(
+        (annotationItem) => item.id === annotationItem.id,
+      ) as Annotation;
     annotations.push(annotationResource as unknown as AnnotationNormalized);
   });
 

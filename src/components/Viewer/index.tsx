@@ -1,5 +1,9 @@
 import "src/i18n/config";
-import { CollectionNormalized, ManifestNormalized } from "@iiif/presentation-3";
+import {
+  CollectionNormalized,
+  Manifest,
+  ManifestNormalized,
+} from "@iiif/presentation-3";
 import React, { useEffect, useState } from "react";
 import {
   type ViewerConfigOptions,
@@ -35,6 +39,7 @@ export interface CloverViewerProps {
   manifestId?: string;
   options?: ViewerConfigOptions;
   iiifContentSearchQuery?: ContentSearchQuery;
+  unVaultedIIIFContent?: Manifest;
 }
 
 const CloverViewer: React.FC<CloverViewerProps> = ({
@@ -48,6 +53,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
   manifestId,
   options,
   iiifContentSearchQuery,
+  unVaultedIIIFContent,
 }) => {
   /**
    * Legacy `id` and `manifestId` prop support.
@@ -78,6 +84,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
               headers: options?.requestHeaders,
             }).then((response) => JSON.parse(response.data)),
         }),
+        unVaultedIIIFContent: unVaultedIIIFContent,
       }}
     >
       <RenderViewer

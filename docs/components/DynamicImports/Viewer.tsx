@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { isDark } from "docs/lib/theme";
 import { useRouter } from "next/router";
 import { ContentSearchQuery } from "src/types/annotations";
+import { Manifest } from "@iiif/presentation-3";
 
 // todo: set this as a constant somewhere?
 const defaultIiifContent =
@@ -22,12 +23,14 @@ const CloverViewer = ({
   customDisplays,
   iiifContentSearchQuery,
   plugins,
+  unVaultedIIIFContent,
 }: {
   iiifContent: string;
   options?: ViewerConfigOptions;
   customDisplays?: Array<CustomDisplay>;
   iiifContentSearchQuery?: ContentSearchQuery;
   plugins?: Array<PluginConfig>;
+  unVaultedIIIFContent?: Manifest;
 }) => {
   const router = useRouter();
   const iiifResource = router.query["iiif-content"]
@@ -41,6 +44,7 @@ const CloverViewer = ({
       iiifContent={iiifResource}
       iiifContentSearchQuery={iiifContentSearchQuery}
       options={{ ...options, background }}
+      unVaultedIIIFContent={unVaultedIIIFContent}
       key={iiifResource}
       {...(customDisplays && { customDisplays })}
       {...(plugins && { plugins })}

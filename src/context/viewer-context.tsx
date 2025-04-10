@@ -4,6 +4,7 @@ import React, { useReducer } from "react";
 import {
   CollectionNormalized,
   InternationalString,
+  Manifest,
 } from "@iiif/presentation-3";
 import { IncomingHttpHeaders } from "http";
 import { Vault } from "@iiif/helpers/vault";
@@ -176,6 +177,7 @@ export interface ViewerContextStore {
   openSeadragonId?: string;
   selectedAnnotationId?: string;
   viewerId?: string;
+  unVaultedIIIFContent?: Manifest; // Hack: Vault is removing data from annotations (maybe because they're embedded?) We need to pass the original IIIF content to the viewer
 }
 
 export interface ViewerAction {
@@ -241,6 +243,7 @@ export const defaultState: ViewerContextStore = {
   contentSearchVault: new Vault(),
   openSeadragonViewer: null,
   viewerId: uuidv4(),
+  unVaultedIIIFContent: undefined,
 };
 
 const ViewerStateContext =
