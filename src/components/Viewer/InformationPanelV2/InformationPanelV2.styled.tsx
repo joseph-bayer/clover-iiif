@@ -3,7 +3,7 @@ import { styled } from "src/styles/stitches.config";
 const Panel = styled("div", {
   position: "absolute",
   left: "50px",
-  top: "50px",
+  top: "150px",
   bottom: "50px",
   width: "33%",
   backgroundColor: "black",
@@ -13,6 +13,7 @@ const Panel = styled("div", {
   boxSizing: "border-box",
   color: "white",
   overflowY: "auto",
+  maxHeight: "calc(100vh - 150px - 50px)", // Adjusted for top and bottom padding
 });
 
 const CloseButton = styled("div", {
