@@ -13,6 +13,7 @@ const Panel = styled("div", {
   boxSizing: "border-box",
   color: "white",
   overflowY: "auto",
+  height: "min-content",
   maxHeight: "calc(100vh - 150px - 50px)", // Adjusted for top and bottom padding
 });
 
