@@ -3,7 +3,7 @@ import { styled } from "src/styles/stitches.config";
 const Wrapper = styled("div", {
   position: "absolute",
   zIndex: "1",
-  top: "1rem",
+  bottom: "1rem",
   right: "1rem",
   display: "flex",
 
