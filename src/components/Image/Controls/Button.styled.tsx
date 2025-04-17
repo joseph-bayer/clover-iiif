@@ -42,7 +42,12 @@ const Item = styled("button", {
   },
 
   "&:hover, &:focus": {
-    backgroundColor: "$accent",
+    backgroundColor: "white",
+    borderColor: "black",
+    svg: {
+      fill: "black",
+      stroke: "black",
+    },
   },
 
   "&[data-button=rotate-right]": {
