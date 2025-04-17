@@ -9,18 +9,39 @@ const Panel = styled("div", {
   backgroundColor: "black",
   border: "2px solid white",
   borderRadius: "10px",
-  padding: "20px",
+  padding: "20px 0 20px 20px",
   boxSizing: "border-box",
   color: "white",
-  overflowY: "auto",
+  overflowY: "hidden",
   height: "min-content",
   maxHeight: "calc(100% - 150px - 50px)", // Adjusted for top and bottom padding
+  display: "flex",
+  flexDirection: "column",
+});
+
+const PanelHeader = styled("div", {
+  position: "relative",
+  height: "30px",
+  marginBottom: "10px",
+  flexShrink: 0,
+});
+
+const PanelTitle = styled("div", {
+  fontWeight: "600",
+  fontSize: "20px",
+  paddingRight: "60px", // Space for close button
+});
+
+const PanelContent = styled("div", {
+  flex: 1,
+  overflowY: "auto",
+  paddingRight: "10px",
 });
 
 const CloseButton = styled("div", {
   position: "absolute",
   right: "10px",
-  top: "10px",
+  top: "-10px",
   width: "30px",
   height: "30px",
   borderRadius: "50%",
@@ -49,4 +70,4 @@ const CloseIcon = styled("span", {
   },
 });
 
-export { Panel, CloseButton, CloseIcon };
+export { Panel, PanelHeader, PanelTitle, PanelContent, CloseButton, CloseIcon };
