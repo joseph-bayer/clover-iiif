@@ -14,7 +14,7 @@ const Panel = styled("div", {
   color: "white",
   overflowY: "auto",
   height: "min-content",
-  maxHeight: "calc(100vh - 150px - 50px)", // Adjusted for top and bottom padding
+  maxHeight: "calc(100% - 150px - 50px)", // Adjusted for top and bottom padding
 });
 
 const CloseButton = styled("div", {
