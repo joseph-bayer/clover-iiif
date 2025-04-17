@@ -31,7 +31,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   // TODO: handle weird type errors
   useEffect(() => {
     if (selectedAnnotationId) {
-      const newSelectedAnnotation = annotations.find(
+      const newSelectedAnnotation: any = annotations.find(
         (annotation) => annotation.id === selectedAnnotationId,
       );
       setSelectedAnnotation(newSelectedAnnotation ?? null);
@@ -82,7 +82,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   return (
     <Panel>
       <PanelHeader>
-        <PanelTitle>{selectedAnnotation.label ?? ""}</PanelTitle>
+        <PanelTitle>{selectedAnnotation.label?.["en"] ?? ""}</PanelTitle>
         <CloseButton onClick={onClose}>
           {/* TODO: svg? */}
           <CloseIcon>×</CloseIcon>
