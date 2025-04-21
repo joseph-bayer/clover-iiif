@@ -55,7 +55,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
   options,
   iiifContentSearchQuery,
   unVaultedIIIFContent,
-  activeLanguageCode = "en",
+  activeLanguageCode,
 }) => {
   /**
    * Legacy `id` and `manifestId` prop support.
@@ -87,7 +87,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
             }).then((response) => JSON.parse(response.data)),
         }),
         unVaultedIIIFContent,
-        activeLanguageCode,
+        activeLanguageCode: activeLanguageCode ?? "en",
       }}
     >
       <RenderViewer
@@ -97,7 +97,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
         customTheme={customTheme}
         options={options}
         iiifContentSearchQuery={iiifContentSearchQuery}
-        activeLanguageCode={activeLanguageCode}
+        activeLanguageCode={activeLanguageCode ?? "en"}
       />
     </ViewerProvider>
   );
