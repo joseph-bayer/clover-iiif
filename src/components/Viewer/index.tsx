@@ -40,6 +40,7 @@ export interface CloverViewerProps {
   options?: ViewerConfigOptions;
   iiifContentSearchQuery?: ContentSearchQuery;
   unVaultedIIIFContent?: Manifest;
+  activeLanguageCode?: string;
 }
 
 const CloverViewer: React.FC<CloverViewerProps> = ({
@@ -54,6 +55,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
   options,
   iiifContentSearchQuery,
   unVaultedIIIFContent,
+  activeLanguageCode = "en",
 }) => {
   /**
    * Legacy `id` and `manifestId` prop support.
@@ -84,7 +86,8 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
               headers: options?.requestHeaders,
             }).then((response) => JSON.parse(response.data)),
         }),
-        unVaultedIIIFContent: unVaultedIIIFContent,
+        unVaultedIIIFContent,
+        activeLanguageCode,
       }}
     >
       <RenderViewer

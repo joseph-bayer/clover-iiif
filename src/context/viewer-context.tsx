@@ -178,6 +178,7 @@ export interface ViewerContextStore {
   selectedAnnotationId?: string;
   viewerId?: string;
   unVaultedIIIFContent?: Manifest; // Hack: Vault is removing data from annotations (maybe because they're embedded?) We need to pass the original IIIF content to the viewer
+  activeLanguageCode?: string;
 }
 
 export interface ViewerAction {
@@ -244,6 +245,7 @@ export const defaultState: ViewerContextStore = {
   openSeadragonViewer: null,
   viewerId: uuidv4(),
   unVaultedIIIFContent: undefined,
+  activeLanguageCode: "en",
 };
 
 const ViewerStateContext =

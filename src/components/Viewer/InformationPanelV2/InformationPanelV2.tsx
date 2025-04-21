@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { AnnotationNormalized } from "@iiif/presentation-3";
 import { useViewerDispatch, useViewerState } from "src/context/viewer-context";
+import Image from "next/image";
 
 interface InformationPanelV2Props {
   annotations: Array<AnnotationNormalized>;
@@ -17,7 +18,7 @@ interface InformationPanelV2Props {
 export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   annotations,
 }) => {
-  const { selectedAnnotationId } = useViewerState();
+  const { selectedAnnotationId, activeLanguageCode } = useViewerState();
   const [selectedAnnotation, setSelectedAnnotation] =
     useState<AnnotationNormalized | null>(null);
   const [selectedAnnotationText, setSelectedAnnotationText] = useState<
@@ -37,9 +38,10 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
       setSelectedAnnotation(newSelectedAnnotation ?? null);
       if (newSelectedAnnotation) {
         if (Array.isArray(newSelectedAnnotation.body)) {
-          // TODO: Handle multilingual
           const text = newSelectedAnnotation.body.find(
-            (body) => body.type === "TextualBody",
+            (body) =>
+              body.type === "TextualBody" &&
+              body.language === activeLanguageCode,
           )?.value;
           const image = newSelectedAnnotation.body.find(
             (body) => body.type === "Image",
@@ -96,9 +98,11 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
 
         {/* Image */}
         {selectedAnnotationImage && (
-          <img
+          <Image
             src={selectedAnnotationImage}
             alt="Annotation"
+            width={500}
+            height={500}
             style={{
               maxWidth: "100%",
               maxHeight: "calc(100% - 40px)",
