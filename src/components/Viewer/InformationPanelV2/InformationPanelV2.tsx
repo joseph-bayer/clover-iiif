@@ -66,7 +66,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
       setSelectedAnnotationText(null);
       setSelectedAnnotationImage(null);
     }
-  }, [selectedAnnotationId, annotations]);
+  }, [selectedAnnotationId, annotations, activeLanguageCode]);
 
   const onClose = () => {
     viewerDispatch({

@@ -110,7 +110,6 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
   iiifContent,
   options,
   iiifContentSearchQuery,
-  activeLanguageCode,
 }) => {
   const dispatch: any = useViewerDispatch();
 
@@ -160,7 +159,7 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
             isLoaded: true,
           });
         });
-  }, [iiifContent, activeManifest, dispatch, vault, activeLanguageCode]);
+  }, [iiifContent, activeManifest, dispatch, vault]);
 
   useEffect(() => {
     dispatch({
