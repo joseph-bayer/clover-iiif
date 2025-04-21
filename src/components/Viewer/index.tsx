@@ -71,10 +71,6 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
     options?.informationPanel?.vtt?.autoScroll,
   );
 
-  useEffect(() => {
-    console.log("cloverviewer - language update: ", activeLanguageCode);
-  }, [activeLanguageCode]);
-
   return (
     <ViewerProvider
       initialState={{
@@ -210,7 +206,6 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
   }, [dispatch, iiifContent, iiifResource]);
 
   useEffect(() => {
-    console.log("index - language update: ", activeLanguageCode);
     if (activeLanguageCode) {
       dispatch({
         type: "updateActiveLanguageCode",

@@ -30,7 +30,6 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   const viewerDispatch: any = useViewerDispatch();
 
   useEffect(() => {
-    console.log("activeLanguageCode: ", activeLanguageCode);
     if (selectedAnnotationId) {
       const newSelectedAnnotation: any = annotations.find(
         (annotation) => annotation.id === selectedAnnotationId,
