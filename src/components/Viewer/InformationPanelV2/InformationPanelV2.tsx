@@ -29,8 +29,8 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   >(null);
   const viewerDispatch: any = useViewerDispatch();
 
-  // TODO: handle weird type errors
   useEffect(() => {
+    console.log("activeLanguageCode: ", activeLanguageCode);
     if (selectedAnnotationId) {
       const newSelectedAnnotation: any = annotations.find(
         (annotation) => annotation.id === selectedAnnotationId,
