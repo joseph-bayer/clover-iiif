@@ -97,6 +97,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
         customTheme={customTheme}
         options={options}
         iiifContentSearchQuery={iiifContentSearchQuery}
+        activeLanguageCode={activeLanguageCode}
       />
     </ViewerProvider>
   );
@@ -109,6 +110,7 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
   iiifContent,
   options,
   iiifContentSearchQuery,
+  activeLanguageCode,
 }) => {
   const dispatch: any = useViewerDispatch();
 
@@ -158,7 +160,7 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
             isLoaded: true,
           });
         });
-  }, [iiifContent, activeManifest, dispatch, vault]);
+  }, [iiifContent, activeManifest, dispatch, vault, activeLanguageCode]);
 
   useEffect(() => {
     dispatch({
