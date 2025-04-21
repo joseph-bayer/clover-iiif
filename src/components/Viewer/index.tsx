@@ -110,6 +110,7 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
   iiifContent,
   options,
   iiifContentSearchQuery,
+  activeLanguageCode,
 }) => {
   const dispatch: any = useViewerDispatch();
 
@@ -203,6 +204,16 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
       });
     }
   }, [dispatch, iiifContent, iiifResource]);
+
+  useEffect(() => {
+    console.log("index - language update: ", activeLanguageCode);
+    if (activeLanguageCode) {
+      dispatch({
+        type: "updateActiveLanguageCode",
+        activeLanguageCode,
+      });
+    }
+  }, [activeLanguageCode, dispatch]);
 
   useEffect(() => {
     if (openSeadragonViewer && openSeadragonInstanceCallback) {

@@ -198,6 +198,7 @@ export interface ViewerAction {
   openSeadragonViewer: OpenSeadragon.Viewer;
   viewerId: string;
   selectedAnnotationId?: string;
+  activeLanguageCode?: string;
 }
 
 export function expandAutoScrollOptions(
@@ -329,6 +330,12 @@ function viewerReducer(state: ViewerContextStore, action: ViewerAction) {
       return {
         ...state,
         selectedAnnotationId: action.selectedAnnotationId,
+      };
+    }
+    case "updateActiveLanguageCode": {
+      return {
+        ...state,
+        activeLanguageCode: action.activeLanguageCode,
       };
     }
     case "updateViewerId": {
