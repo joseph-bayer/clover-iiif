@@ -163,17 +163,24 @@ function addPointOverlay(
     handleAnnotationClickCallback(annotation.id);
   });
 
-  const { backgroundColor, opacity, borderType, borderColor, borderWidth } =
-    configOptions;
+  const {
+    backgroundColor,
+    borderColor,
+    highlightedBorderColor,
+    highlightedBackgroundColor,
+    opacity,
+    borderType,
+    borderWidth,
+  } = configOptions;
 
   overlayElement.style.opacity = opacity as string;
   overlayElement.style.border = "2px solid white";
   overlayElement.style.outlineOffset = "0";
 
   if (annotation.id === selectedAnnotationId) {
-    // TODO: add to config
-    overlayElement.style.backgroundColor = "rgba(249, 207, 72, 1)";
-    overlayElement.style.outline = `${borderWidth} ${borderType} rgba(249, 208, 71, 0.7)`;
+    overlayElement.style.backgroundColor =
+      highlightedBackgroundColor ?? "rgba(249, 207, 72, 1)";
+    overlayElement.style.outline = `${borderWidth} ${borderType} ${highlightedBorderColor ?? "rgba(249, 208, 71, 0.7)"}`;
   } else {
     overlayElement.style.backgroundColor = backgroundColor as string;
     overlayElement.style.outline = `${borderWidth} ${borderType} ${borderColor}`;

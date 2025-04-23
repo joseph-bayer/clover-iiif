@@ -64,6 +64,8 @@ export type ViewerConfigOptions = {
 export type OverlayOptions = {
   backgroundColor?: string;
   borderColor?: string;
+  highlightedBackgroundColor?: string;
+  highlightedBorderColor?: string;
   borderType?: string;
   borderWidth?: string;
   opacity?: string;
