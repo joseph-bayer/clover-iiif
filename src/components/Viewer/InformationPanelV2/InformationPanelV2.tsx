@@ -18,7 +18,8 @@ interface InformationPanelV2Props {
 export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   annotations,
 }) => {
-  const { selectedAnnotationId, activeLanguageCode } = useViewerState();
+  const { selectedAnnotationId, activeLanguageCode, configOptions } =
+    useViewerState();
   const [selectedAnnotation, setSelectedAnnotation] =
     useState<AnnotationNormalized | null>(null);
   const [selectedAnnotationText, setSelectedAnnotationText] = useState<
@@ -81,7 +82,12 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   }
 
   return (
-    <Panel>
+    <Panel
+      css={{
+        borderColor:
+          configOptions.annotationOverlays?.highlightedBackgroundColor,
+      }}
+    >
       <PanelHeader>
         <PanelTitle>{selectedAnnotation.label?.["en"] ?? ""}</PanelTitle>
         <CloseButton onClick={onClose}>
