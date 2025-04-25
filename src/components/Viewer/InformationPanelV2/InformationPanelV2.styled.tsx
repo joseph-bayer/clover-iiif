@@ -21,7 +21,7 @@ const Panel = styled("div", {
 
 const PanelHeader = styled("div", {
   position: "relative",
-  height: "30px",
+  height: "36px",
   marginBottom: "10px",
   flexShrink: 0,
 });
@@ -42,8 +42,8 @@ const CloseButton = styled("div", {
   position: "absolute",
   right: "10px",
   top: "-10px",
-  width: "30px",
-  height: "30px",
+  width: "36px",
+  height: "36px",
   borderRadius: "50%",
   border: "2px solid white",
   backgroundColor: "transparent",
@@ -60,13 +60,20 @@ const CloseButton = styled("div", {
 });
 
 const CloseIcon = styled("span", {
-  color: "white",
   fontSize: "20px",
   lineHeight: "1",
-  transition: "color 0.2s ease", // Smooth transition for hover effect
+  transition: "all 0.2s ease", // Smooth transition for hover effect
+
+  svg: {
+    fill: "white",
+    padding: "3px 2px 3px 3px",
+  },
 
   [`${CloseButton}:hover &`]: {
-    color: "black",
+    fill: "black",
+    svg: {
+      fill: "black",
+    },
   },
 });
 
