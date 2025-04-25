@@ -1,4 +1,5 @@
 import {
+  CaptionText,
   CloseButton,
   CloseIcon,
   Panel,
@@ -26,7 +27,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
     string | null
   >(null);
   const [selectedAnnotationImage, setSelectedAnnotationImage] = useState<
-    string | null
+    any | null
   >(null);
   const viewerDispatch: any = useViewerDispatch();
 
@@ -45,7 +46,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
           )?.value;
           const image = newSelectedAnnotation.body.find(
             (body) => body.type === "Image",
-          )?.id;
+          );
           setSelectedAnnotationText(text ?? null);
           setSelectedAnnotationImage(image ?? null);
         } else {
@@ -55,7 +56,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
               : null;
           const image =
             newSelectedAnnotation.body.type === "Image"
-              ? newSelectedAnnotation.body.id
+              ? newSelectedAnnotation.body
               : null;
           setSelectedAnnotationText(text ?? null);
           setSelectedAnnotationImage(image ?? null);
@@ -115,18 +116,26 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
 
         {/* Image */}
         {selectedAnnotationImage && (
-          <Image
-            src={selectedAnnotationImage}
-            alt="Annotation"
-            width={500}
-            height={500}
-            style={{
-              maxWidth: "100%",
-              maxHeight: "calc(100% - 40px)",
-              marginTop: "10px",
-              borderRadius: "5px",
-            }}
-          />
+          <>
+            <Image
+              src={selectedAnnotationImage.id}
+              alt="Annotation"
+              width={500}
+              height={500}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "calc(100% - 40px)",
+                marginTop: "10px",
+                borderRadius: "5px",
+              }}
+            />
+            {selectedAnnotationImage.label && (
+              <CaptionText>
+                {selectedAnnotationImage.label[activeLanguageCode ?? "en"] ??
+                  ""}
+              </CaptionText>
+            )}
+          </>
         )}
       </PanelContent>
     </Panel>

@@ -77,4 +77,21 @@ const CloseIcon = styled("span", {
   },
 });
 
-export { Panel, PanelHeader, PanelTitle, PanelContent, CloseButton, CloseIcon };
+const CaptionText = styled("div", {
+  fontWeight: "400",
+  fontSize: "16px",
+  fontStyle: "italic",
+  lineHeight: "100%",
+  letterSpacing: "0%",
+  marginTop: "1rem",
+});
+
+export {
+  Panel,
+  PanelHeader,
+  PanelTitle,
+  PanelContent,
+  CloseButton,
+  CloseIcon,
+  CaptionText,
+};
