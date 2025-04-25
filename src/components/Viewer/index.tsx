@@ -41,6 +41,7 @@ export interface CloverViewerProps {
   iiifContentSearchQuery?: ContentSearchQuery;
   unVaultedIIIFContent?: Manifest;
   activeLanguageCode?: string;
+  hideInformationPanel?: boolean;
 }
 
 const CloverViewer: React.FC<CloverViewerProps> = ({
@@ -56,6 +57,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
   iiifContentSearchQuery,
   unVaultedIIIFContent,
   activeLanguageCode,
+  hideInformationPanel,
 }) => {
   /**
    * Legacy `id` and `manifestId` prop support.
@@ -98,6 +100,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
         options={options}
         iiifContentSearchQuery={iiifContentSearchQuery}
         activeLanguageCode={activeLanguageCode ?? "en"}
+        hideInformationPanel={hideInformationPanel}
       />
     </ViewerProvider>
   );
@@ -111,6 +114,7 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
   options,
   iiifContentSearchQuery,
   activeLanguageCode,
+  hideInformationPanel,
 }) => {
   const dispatch: any = useViewerDispatch();
 
@@ -213,6 +217,16 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
       });
     }
   }, [activeLanguageCode, dispatch]);
+
+  // Hide information panel if the prop is set to true
+  useEffect(() => {
+    if (hideInformationPanel) {
+      dispatch({
+        type: "updateSelectedAnnotation",
+        selectedAnnotationId: null,
+      });
+    }
+  }, [hideInformationPanel, dispatch]);
 
   useEffect(() => {
     if (openSeadragonViewer && openSeadragonInstanceCallback) {
