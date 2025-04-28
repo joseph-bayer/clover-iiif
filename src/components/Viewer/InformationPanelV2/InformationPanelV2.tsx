@@ -24,7 +24,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   const [selectedAnnotation, setSelectedAnnotation] =
     useState<AnnotationNormalized | null>(null);
   const [selectedAnnotationText, setSelectedAnnotationText] = useState<
-    string | null
+    any | null
   >(null);
   const [selectedAnnotationImage, setSelectedAnnotationImage] = useState<
     any | null
@@ -43,7 +43,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
             (body) =>
               body.type === "TextualBody" &&
               body.language === activeLanguageCode,
-          )?.value;
+          );
           const image = newSelectedAnnotation.body.find(
             (body) => body.type === "Image",
           );
@@ -90,7 +90,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
       }}
     >
       <PanelHeader>
-        <PanelTitle>{selectedAnnotation.label?.["en"] ?? ""}</PanelTitle>
+        <PanelTitle>{selectedAnnotationText.label ?? ""}</PanelTitle>
         <CloseButton onClick={onClose}>
           <CloseIcon>
             <svg
@@ -111,7 +111,9 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
       <PanelContent>
         {/* Text */}
         <div
-          dangerouslySetInnerHTML={{ __html: selectedAnnotationText ?? "" }}
+          dangerouslySetInnerHTML={{
+            __html: selectedAnnotationText.value ?? "",
+          }}
         ></div>
 
         {/* Image */}
