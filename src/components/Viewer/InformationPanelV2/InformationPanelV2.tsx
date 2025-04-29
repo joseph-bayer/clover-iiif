@@ -91,7 +91,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
     >
       <PanelHeader>
         <PanelTitle>{selectedAnnotationText?.label ?? ""}</PanelTitle>
-        <CloseButton onClick={onClose}>
+        <CloseButton onClick={onClose} onTouchStart={onClose}>
           <CloseIcon>
             <svg
               xmlns="http://www.w3.org/2000/svg"
