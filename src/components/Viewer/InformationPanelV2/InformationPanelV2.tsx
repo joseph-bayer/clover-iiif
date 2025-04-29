@@ -90,7 +90,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
       }}
     >
       <PanelHeader>
-        <PanelTitle>{selectedAnnotationText.label ?? ""}</PanelTitle>
+        <PanelTitle>{selectedAnnotationText?.label ?? ""}</PanelTitle>
         <CloseButton onClick={onClose}>
           <CloseIcon>
             <svg
@@ -112,7 +112,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
         {/* Text */}
         <div
           dangerouslySetInnerHTML={{
-            __html: selectedAnnotationText.value ?? "",
+            __html: selectedAnnotationText?.value ?? "",
           }}
         ></div>
 
