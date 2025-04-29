@@ -162,6 +162,9 @@ function addPointOverlay(
   overlayElement.addEventListener("click", () => {
     handleAnnotationClickCallback(annotation.id);
   });
+  overlayElement.addEventListener("touchstart", () => {
+    handleAnnotationClickCallback(annotation.id);
+  });
 
   const {
     backgroundColor,
@@ -368,6 +371,7 @@ export function removeOverlaysFromViewer(
   if (elements) {
     elements.forEach((element) => {
       element.removeEventListener("click", clickHandlerToRemove);
+      element.removeEventListener("touchstart", clickHandlerToRemove);
       viewer.removeOverlay(element);
     });
 
