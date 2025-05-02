@@ -163,8 +163,8 @@ function addPointOverlay(
 
   // Create a div for the overlay
   const overlayElement = document.createElement("button");
-  overlayElement.style.width = `calc(${overlaySize}px + (${borderWidth} * 2))`;
-  overlayElement.style.height = `calc(${overlaySize}px + (${borderWidth} * 2))`;
+  overlayElement.style.width = `calc(${overlaySize}px + (${borderWidth}))`;
+  overlayElement.style.height = `calc(${overlaySize}px + (${borderWidth}))`;
   overlayElement.style.borderRadius = "50%"; // Make it a circle
   overlayElement.style.position = "absolute";
   overlayElement.className = overlaySelector;
@@ -184,8 +184,8 @@ function addPointOverlay(
   innerElement.style.width = `${overlaySize}px`;
   innerElement.style.height = `${overlaySize}px`;
   innerElement.style.backgroundColor = backgroundColor as string;
-  innerElement.style.top = `${borderWidth}`;
-  innerElement.style.left = `${borderWidth}`;
+  innerElement.style.top = `calc(${borderWidth} / 2)`;
+  innerElement.style.left = `calc(${borderWidth} / 2)`;
   innerElement.style.borderRadius = "50%";
   innerElement.style.border = "2px solid white";
   innerElement.style.zIndex = "1";
