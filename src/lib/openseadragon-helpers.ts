@@ -148,13 +148,23 @@ function addPointOverlay(
   handleAnnotationClickCallback: any,
   selectedAnnotationId?: string,
 ) {
+  const {
+    backgroundColor,
+    borderColor,
+    highlightedBorderColor,
+    highlightedBackgroundColor,
+    opacity,
+    borderType,
+    borderWidth,
+  } = configOptions;
+
   // Fixed size for the overlay (in pixels)
   const overlaySize = 20; // Example size in pixels
 
   // Create a div for the overlay
   const overlayElement = document.createElement("button");
-  overlayElement.style.width = `${overlaySize}px`;
-  overlayElement.style.height = `${overlaySize}px`;
+  overlayElement.style.width = `calc(${overlaySize}px + (${borderWidth} * 2))`;
+  overlayElement.style.height = `calc(${overlaySize}px + (${borderWidth} * 2))`;
   overlayElement.style.borderRadius = "50%"; // Make it a circle
   overlayElement.style.position = "absolute";
   overlayElement.className = overlaySelector;
@@ -166,28 +176,33 @@ function addPointOverlay(
     handleAnnotationClickCallback(annotation.id);
   });
 
-  const {
-    backgroundColor,
-    borderColor,
-    highlightedBorderColor,
-    highlightedBackgroundColor,
-    opacity,
-    borderType,
-    borderWidth,
-  } = configOptions;
-
   overlayElement.style.opacity = opacity as string;
-  overlayElement.style.border = "2px solid white";
-  overlayElement.style.outlineOffset = "0";
 
+  // Create the inner element
+  const innerElement = document.createElement("div");
+  innerElement.style.position = "absolute";
+  innerElement.style.width = `${overlaySize}px`;
+  innerElement.style.height = `${overlaySize}px`;
+  innerElement.style.backgroundColor = backgroundColor as string;
+  innerElement.style.top = `${borderWidth}`;
+  innerElement.style.left = `${borderWidth}`;
+  innerElement.style.borderRadius = "50%";
+  innerElement.style.border = "2px solid white";
+  innerElement.style.zIndex = "1";
+
+  // Apply highlighted/not-highlighted styles
   if (annotation.id === selectedAnnotationId) {
     overlayElement.style.backgroundColor =
+      highlightedBorderColor ?? "rgba(249, 208, 71, 0.7)";
+    innerElement.style.backgroundColor =
       highlightedBackgroundColor ?? "rgba(249, 207, 72, 1)";
-    overlayElement.style.outline = `${borderWidth} ${borderType} ${highlightedBorderColor ?? "rgba(249, 208, 71, 0.7)"}`;
   } else {
-    overlayElement.style.backgroundColor = backgroundColor as string;
-    overlayElement.style.outline = `${borderWidth} ${borderType} ${borderColor}`;
+    overlayElement.style.backgroundColor = borderColor as string;
+    innerElement.style.backgroundColor = backgroundColor as string;
   }
+
+  // Append the inner element
+  overlayElement.appendChild(innerElement);
 
   // Append the overlay to the viewer's container.
   // By attaching it to the container instead of the viewer itself, the overlay will stay the same size and in the correct place when the viewer is zoomed.
