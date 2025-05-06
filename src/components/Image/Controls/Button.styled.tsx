@@ -13,7 +13,7 @@ const Item = styled("button", {
   border: "2px solid white",
   cursor: "pointer",
   marginLeft: "0.618rem",
-  filter: "drop-shadow(2px 2px 5px #0003)",
+  boxShadow: "black 0px 0px 8px 0px",
   transition: "$all",
   boxSizing: "content-box !important",
 
@@ -42,11 +42,11 @@ const Item = styled("button", {
   },
 
   "&:hover, &:focus": {
-    backgroundColor: "white",
-    borderColor: "black",
+    backgroundColor: "rgb(61, 17, 13)",
+    borderColor: "rgb(224, 89, 42)",
     svg: {
-      fill: "black",
-      stroke: "black",
+      fill: "rgb(224, 89, 42)",
+      stroke: "rgb(224, 89, 42)",
     },
   },
 
