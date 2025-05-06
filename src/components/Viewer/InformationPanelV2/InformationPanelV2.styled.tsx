@@ -36,6 +36,7 @@ const PanelContent = styled("div", {
   flex: 1,
   overflowY: "auto",
   paddingRight: "10px",
+  display: "contents",
 });
 
 const CloseButton = styled("div", {
