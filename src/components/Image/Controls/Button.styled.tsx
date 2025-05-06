@@ -2,9 +2,9 @@ import { styled } from "src/styles/stitches.config";
 
 const Item = styled("button", {
   display: "flex",
-  height: "2rem",
-  width: "2rem",
-  borderRadius: "2rem",
+  height: "2.5rem",
+  width: "2.5rem",
+  borderRadius: "2.5rem",
   padding: "0",
   margin: "0",
   fontFamily: "inherit",
