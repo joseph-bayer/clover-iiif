@@ -54,8 +54,8 @@ const CloseButton = styled("div", {
   transition: "background-color 0.2s ease, border-color 0.2s ease",
 
   "&:hover": {
-    backgroundColor: "white",
-    borderColor: "white",
+    backgroundColor: "rgb(61, 17, 13)",
+    borderColor: "rgb(224, 89, 42)",
   },
 });
 
@@ -70,9 +70,9 @@ const CloseIcon = styled("span", {
   },
 
   [`${CloseButton}:hover &`]: {
-    fill: "black",
+    fill: "rgb(224, 89, 42)",
     svg: {
-      fill: "black",
+      fill: "rgb(224, 89, 42)",
     },
   },
 });
