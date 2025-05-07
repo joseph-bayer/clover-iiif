@@ -6,9 +6,18 @@ interface ButtonProps {
   id: string;
   label: string;
   children: React.ReactChild;
+  viewBoxX?: number;
+  viewBoxY?: number;
 }
 
-const Button: React.FC<ButtonProps> = ({ className, id, label, children }) => {
+const Button: React.FC<ButtonProps> = ({
+  className,
+  id,
+  label,
+  children,
+  viewBoxX = 512,
+  viewBoxY = 512,
+}) => {
   const dataButton = label.toLowerCase().replace(/\s/g, "-");
   return (
     <Item
@@ -22,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({ className, id, label, children }) => {
         aria-labelledby={`${id}-svg-title`}
         data-testid="openseadragon-button-svg"
         focusable="false"
-        viewBox="0 0 512 512"
+        viewBox={`0 0 ${viewBoxX} ${viewBoxY}`}
         role="img"
       >
         <title id={`${id}-svg-title`}>{label}</title>

@@ -69,10 +69,20 @@ const Item = styled("button", {
   },
 
   "&[data-button=reset]": {
-    "&:hover, &:focus": {
-      svg: {
-        rotate: "-15deg",
-      },
+    svg: {
+      paddingLeft: "24%",
+    },
+  },
+
+  "&[data-button=zoom-in]": {
+    svg: {
+      paddingLeft: "18%",
+    },
+  },
+
+  "&[data-button=zoom-out]": {
+    svg: {
+      paddingLeft: "18%",
     },
   },
 });
