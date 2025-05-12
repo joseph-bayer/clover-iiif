@@ -14,14 +14,22 @@ const Panel = styled("div", {
   color: "white",
   overflowY: "hidden",
   height: "min-content",
-  maxHeight: "calc(100% - 150px - 50px)", // Adjusted for top and bottom padding
+  maxHeight: "calc(100% - 150px - 50px)", // Adjusted for top and bottom margin
   display: "flex",
   flexDirection: "column",
+
+  "@sm": {
+    width: "50%",
+    left: "15px",
+    top: "15px",
+    bottom: "15px",
+    maxHeight: "calc(100% - 30px)", // Adjusted for top and bottom margin
+  },
 });
 
 const PanelHeader = styled("div", {
   position: "relative",
-  height: "36px",
+  minHeight: "36px",
   marginBottom: "10px",
   flexShrink: 0,
 });

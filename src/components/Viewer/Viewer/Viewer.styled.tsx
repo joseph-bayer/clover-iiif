@@ -13,10 +13,6 @@ const Content = styled("div", {
   flexGrow: "1",
   overflow: "hidden",
   position: "relative",
-
-  "@sm": {
-    flexDirection: "column",
-  },
 });
 
 const Main = styled("div", {
