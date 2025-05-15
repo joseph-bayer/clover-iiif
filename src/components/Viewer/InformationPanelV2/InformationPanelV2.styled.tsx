@@ -12,18 +12,16 @@ const Panel = styled("div", {
   padding: "20px 0 20px 20px",
   boxSizing: "border-box",
   color: "white",
-  overflowY: "hidden",
-  height: "min-content",
-  maxHeight: "calc(100% - 150px - 50px)", // Adjusted for top and bottom margin
   display: "flex",
   flexDirection: "column",
+  maxHeight: "calc(100dvh - 150px - 50px)", // Adjusted for the top and bottom spacing
 
   "@sm": {
     width: "50%",
     left: "15px",
     top: "15px",
     bottom: "15px",
-    maxHeight: "calc(100% - 30px)", // Adjusted for top and bottom margin
+    maxHeight: "calc(100dvh - 30px)", // Adjusted for the top and bottom spacing
   },
 });
 
@@ -41,7 +39,8 @@ const PanelTitle = styled("div", {
 });
 
 const PanelContent = styled("div", {
-  flex: 1,
+  position: "relative",
+  flex: "1 1 auto",
   overflowY: "auto",
   paddingRight: "10px",
 });

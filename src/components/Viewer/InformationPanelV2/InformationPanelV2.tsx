@@ -109,36 +109,38 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
         </CloseButton>
       </PanelHeader>
       <PanelContent>
-        {/* Text */}
-        <div
-          dangerouslySetInnerHTML={{
-            __html: selectedAnnotationText?.value ?? "",
-          }}
-        ></div>
+        <div style={{ position: "relative" }}>
+          {/* Text */}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: selectedAnnotationText?.value ?? "",
+            }}
+          ></div>
 
-        {/* Image */}
-        {selectedAnnotationImage && (
-          <>
-            <Image
-              src={selectedAnnotationImage.id}
-              alt="Annotation"
-              width={500}
-              height={500}
-              style={{
-                maxWidth: "100%",
-                maxHeight: "calc(100% - 40px)",
-                marginTop: "10px",
-                borderRadius: "5px",
-              }}
-            />
-            {selectedAnnotationImage.label && (
-              <CaptionText>
-                {selectedAnnotationImage.label[activeLanguageCode ?? "en"] ??
-                  ""}
-              </CaptionText>
-            )}
-          </>
-        )}
+          {/* Image */}
+          {selectedAnnotationImage && (
+            <>
+              <Image
+                src={selectedAnnotationImage.id}
+                alt="Annotation"
+                width={500}
+                height={500}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "calc(100% - 40px)",
+                  marginTop: "10px",
+                  borderRadius: "5px",
+                }}
+              />
+              {selectedAnnotationImage.label && (
+                <CaptionText>
+                  {selectedAnnotationImage.label[activeLanguageCode ?? "en"] ??
+                    ""}
+                </CaptionText>
+              )}
+            </>
+          )}
+        </div>
       </PanelContent>
     </Panel>
   );
