@@ -15,6 +15,7 @@ const Panel = styled("div", {
   display: "flex",
   flexDirection: "column",
   maxHeight: "calc(100% - 150px - 50px)", // Adjusted for the top and bottom spacing
+  height: "fit-content",
 
   "@sm": {
     width: "50%",
