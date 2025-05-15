@@ -14,14 +14,14 @@ const Panel = styled("div", {
   color: "white",
   display: "flex",
   flexDirection: "column",
-  maxHeight: "calc(100dvh - 150px - 50px)", // Adjusted for the top and bottom spacing
+  maxHeight: "calc(100% - 150px - 50px)", // Adjusted for the top and bottom spacing
 
   "@sm": {
     width: "50%",
     left: "15px",
     top: "15px",
     bottom: "15px",
-    maxHeight: "calc(100dvh - 30px)", // Adjusted for the top and bottom spacing
+    maxHeight: "calc(100% - 30px)", // Adjusted for the top and bottom spacing
   },
 });
 
@@ -40,9 +40,11 @@ const PanelTitle = styled("div", {
 
 const PanelContent = styled("div", {
   position: "relative",
-  flex: "1 1 auto",
   overflowY: "auto",
   paddingRight: "10px",
+  paddingBottom: "20px",
+  flex: "1 1 auto",
+  minHeight: 0,
 });
 
 const CloseButton = styled("div", {
