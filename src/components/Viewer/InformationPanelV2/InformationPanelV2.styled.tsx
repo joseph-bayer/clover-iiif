@@ -61,7 +61,6 @@ const CloseButton = styled("div", {
   alignItems: "center",
   justifyContent: "center",
   cursor: "pointer",
-  transition: "background-color 0.2s ease, border-color 0.2s ease",
 
   "&:hover": {
     backgroundColor: "rgb(61, 17, 13)",
