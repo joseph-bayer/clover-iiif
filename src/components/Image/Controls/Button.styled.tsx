@@ -70,7 +70,7 @@ const Item = styled("button", {
 
   "&[data-button=reset]": {
     svg: {
-      paddingLeft: "24%",
+      paddingLeft: "22%",
     },
   },
 
