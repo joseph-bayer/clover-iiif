@@ -2,8 +2,8 @@ import { styled } from "src/styles/stitches.config";
 
 const Panel = styled("div", {
   position: "absolute",
-  left: "50px",
-  top: "150px",
+  left: "1rem",
+  top: "132px",
   bottom: "50px",
   width: "33%",
   backgroundColor: "black",
