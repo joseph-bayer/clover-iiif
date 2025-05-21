@@ -8,6 +8,7 @@ interface ButtonProps {
   children: React.ReactChild;
   viewBoxX?: number;
   viewBoxY?: number;
+  onClick?: (() => void) | undefined;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   viewBoxX = 512,
   viewBoxY = 512,
+  onClick,
 }) => {
   const dataButton = label.toLowerCase().replace(/\s/g, "-");
   return (
@@ -25,6 +27,8 @@ const Button: React.FC<ButtonProps> = ({
       className={className}
       data-testid="openseadragon-button"
       data-button={dataButton}
+      onClick={onClick}
+      onTouchStart={onClick}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -73,11 +73,19 @@ const Controls = ({
 }) => {
   const viewerState: ViewerContextStore = useViewerState();
   const { activeCanvas, plugins, vault } = viewerState;
+  const viewerDispatch: any = useViewerDispatch();
 
   const canvas = vault.get({
     id: activeCanvas,
     type: "Canvas",
   }) as CanvasNormalized;
+
+  const onReset = () => {
+    viewerDispatch({
+      type: "updateSelectedAnnotation",
+      selectedAnnotationId: null,
+    });
+  };
 
   function renderPlugins() {
     return plugins
@@ -137,13 +145,14 @@ const Controls = ({
           </Button>
         </>
       )}
-      {/* TODO: Figure out how to programatically reset */}
+
       {config.showHomeControl && (
         <Button
           id={config.homeButton as string}
           label="reset"
           viewBoxX={26}
           viewBoxY={26}
+          onClick={onReset}
         >
           <Reset />
         </Button>
