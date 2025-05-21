@@ -27,8 +27,7 @@ const Button: React.FC<ButtonProps> = ({
       className={className}
       data-testid="openseadragon-button"
       data-button={dataButton}
-      onClick={onClick}
-      style={{ touchAction: "manipulation" }}
+      onPointerUp={onClick}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
