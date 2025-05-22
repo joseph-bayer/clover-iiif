@@ -21,7 +21,7 @@ const Item = styled("button", {
     marginLeft: "0",
   },
 
-  "@xs": {
+  "@sm": {
     marginBottom: "0.618rem",
     marginLeft: "0",
 
