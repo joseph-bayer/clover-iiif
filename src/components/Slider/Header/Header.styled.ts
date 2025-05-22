@@ -12,7 +12,7 @@ const HeaderControls = styled("div", {
   paddingLeft: "$5",
   paddingRight: "$4",
 
-  "@xs": {
+  "@sm": {
     width: "100%",
     justifyContent: "center",
     padding: "$4 $1 0 0",
@@ -28,7 +28,7 @@ const HeaderStyled = styled("div", {
   lineHeight: "1.4em",
   alignItems: "flex-end",
 
-  "@xs": {
+  "@sm": {
     flexDirection: "column",
   },
 

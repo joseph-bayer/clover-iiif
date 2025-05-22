@@ -7,7 +7,8 @@ const Wrapper = styled("div", {
   right: "1rem",
   display: "flex",
 
-  "@xs": {
+  "@sm": {
+    height: "fit-content",
     flexDirection: "column",
     zIndex: "2",
   },
@@ -17,7 +18,7 @@ const Wrapper = styled("div", {
       true: {
         right: "3.618rem",
 
-        "@xs": {
+        "@sm": {
           top: "3.618rem",
           right: "1rem",
         },
@@ -26,7 +27,7 @@ const Wrapper = styled("div", {
       false: {
         right: "1rem",
 
-        "@xs": {
+        "@sm": {
           top: "1rem",
           right: "1rem",
         },
