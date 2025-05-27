@@ -8,7 +8,7 @@ const Navigator = styled("div", {
   width: "161.8px",
   height: "100px",
   backgroundColor: "#000D",
-  boxShadow: "5px 5px 5px #0002",
+  boxShadow: "black 0px 0px 8px 0px",
   borderRadius: "3px",
 
   ".displayregion": {
