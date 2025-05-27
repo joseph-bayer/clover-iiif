@@ -61,6 +61,7 @@ const CloseButton = styled("div", {
   alignItems: "center",
   justifyContent: "center",
   cursor: "pointer",
+  transition: "$all",
 
   "&:hover": {
     backgroundColor: "rgb(61, 17, 13)",
@@ -71,9 +72,9 @@ const CloseButton = styled("div", {
 const CloseIcon = styled("span", {
   fontSize: "20px",
   lineHeight: "1",
-  transition: "all 0.2s ease", // Smooth transition for hover effect
-
+  transition: "$all",
   svg: {
+    transition: "$all",
     fill: "white",
     padding: "3px 2px 3px 3px",
   },
