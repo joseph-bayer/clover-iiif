@@ -41,14 +41,12 @@ interface ViewerProps {
   manifest: ManifestNormalized;
   theme?: unknown;
   iiifContentSearchQuery?: ContentSearchQuery;
-  children?: React.ReactNode;
 }
 
 const Viewer: React.FC<ViewerProps> = ({
   manifest,
   theme,
   iiifContentSearchQuery,
-  children,
 }) => {
   /**
    * Viewer State
@@ -241,8 +239,6 @@ const Viewer: React.FC<ViewerProps> = ({
           open={isInformationOpen}
           onOpenChange={setInformationOpen}
         >
-          {children}
-
           <ViewerHeader
             manifestLabel={manifest.label as InternationalString}
             manifestId={manifest.id}
