@@ -116,7 +116,7 @@ const Wrapper = styled("div", {
       width: "100%",
       top: "0",
       left: "0",
-      zIndex: "2500000000",
+      zIndex: "5",
 
       [`& ${MediaWrapper}`]: {
         display: "none",
