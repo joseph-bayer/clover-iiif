@@ -237,12 +237,12 @@ const Viewer: React.FC<ViewerProps> = ({
         data-information-panel={isInformationPanel}
         data-information-panel-open={isInformationOpen}
       >
-        {children}
-
         <Collapsible.Root
           open={isInformationOpen}
           onOpenChange={setInformationOpen}
         >
+          {children}
+
           <ViewerHeader
             manifestLabel={manifest.label as InternationalString}
             manifestId={manifest.id}
