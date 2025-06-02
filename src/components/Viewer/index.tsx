@@ -42,6 +42,7 @@ export interface CloverViewerProps {
   unVaultedIIIFContent?: Manifest;
   activeLanguageCode?: string;
   hideInformationPanel?: boolean;
+  children?: React.ReactNode;
 }
 
 const CloverViewer: React.FC<CloverViewerProps> = ({
@@ -58,6 +59,7 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
   unVaultedIIIFContent,
   activeLanguageCode,
   hideInformationPanel,
+  children = null,
 }) => {
   /**
    * Legacy `id` and `manifestId` prop support.
@@ -101,7 +103,9 @@ const CloverViewer: React.FC<CloverViewerProps> = ({
         iiifContentSearchQuery={iiifContentSearchQuery}
         activeLanguageCode={activeLanguageCode ?? "en"}
         hideInformationPanel={hideInformationPanel}
-      />
+      >
+        {children}
+      </RenderViewer>
     </ViewerProvider>
   );
 };
@@ -115,6 +119,7 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
   iiifContentSearchQuery,
   activeLanguageCode,
   hideInformationPanel,
+  children = null,
 }) => {
   const dispatch: any = useViewerDispatch();
 
@@ -284,7 +289,9 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
       theme={theme}
       key={manifest.id}
       iiifContentSearchQuery={iiifContentSearchQuery}
-    />
+    >
+      {children}
+    </Viewer>
   );
 };
 

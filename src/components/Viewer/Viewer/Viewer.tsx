@@ -41,12 +41,14 @@ interface ViewerProps {
   manifest: ManifestNormalized;
   theme?: unknown;
   iiifContentSearchQuery?: ContentSearchQuery;
+  children?: React.ReactNode;
 }
 
 const Viewer: React.FC<ViewerProps> = ({
   manifest,
   theme,
   iiifContentSearchQuery,
+  children,
 }) => {
   /**
    * Viewer State
@@ -235,6 +237,8 @@ const Viewer: React.FC<ViewerProps> = ({
         data-information-panel={isInformationPanel}
         data-information-panel-open={isInformationOpen}
       >
+        {children}
+
         <Collapsible.Root
           open={isInformationOpen}
           onOpenChange={setInformationOpen}
