@@ -49,7 +49,7 @@ const PanelContent = styled("div", {
   minHeight: 0,
 });
 
-const CloseButton = styled("div", {
+const CloseButton = styled("button", {
   position: "absolute",
   right: "10px",
   top: "-10px",

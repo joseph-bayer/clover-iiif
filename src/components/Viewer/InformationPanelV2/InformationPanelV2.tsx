@@ -74,7 +74,6 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
       type: "updateSelectedAnnotation",
       selectedAnnotationId: null,
     });
-    // TODO: reset to default zoom?
   };
 
   // Don't show panel if no annotation is selected
@@ -91,7 +90,14 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
     >
       <PanelHeader>
         <PanelTitle>{selectedAnnotationText?.label ?? ""}</PanelTitle>
-        <CloseButton onPointerUp={onClose}>
+        <CloseButton
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              onClose();
+            }
+          }}
+          onPointerUp={onClose}
+        >
           <CloseIcon>
             <svg
               xmlns="http://www.w3.org/2000/svg"
