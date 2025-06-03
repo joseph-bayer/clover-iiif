@@ -81,6 +81,8 @@ const Painting: React.FC<PaintingProps> = ({
       openSeadragonViewer &&
       configOptions.annotationOverlays?.renderOverlays
     ) {
+      // TODO: remove log after testing
+      console.log("LOG: Updating annotation overlays");
       removeOverlaysFromViewer(
         openSeadragonViewer,
         "annotation-overlay",
