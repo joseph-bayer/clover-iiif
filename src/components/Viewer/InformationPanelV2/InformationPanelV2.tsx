@@ -89,7 +89,13 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
       }}
     >
       <PanelHeader>
-        <PanelTitle>{selectedAnnotationText?.label ?? ""}</PanelTitle>
+        <PanelTitle>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: selectedAnnotationText?.label ?? "",
+            }}
+          ></div>
+        </PanelTitle>
         <CloseButton
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
