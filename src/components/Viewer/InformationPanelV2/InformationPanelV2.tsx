@@ -7,10 +7,11 @@ import {
   PanelHeader,
   PanelTitle,
 } from "src/components/Viewer/InformationPanelV2/InformationPanelV2.styled";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AnnotationNormalized } from "@iiif/presentation-3";
 import { useViewerDispatch, useViewerState } from "src/context/viewer-context";
 import Image from "next/image";
+import { useFocusTrap } from "src/hooks/useFocusTrap";
 
 interface InformationPanelV2Props {
   annotations: Array<AnnotationNormalized>;
@@ -30,6 +31,12 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
     any | null
   >(null);
   const viewerDispatch: any = useViewerDispatch();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Set up focus trap - container will be focused by default
+  const focusTrapRef = useFocusTrap({
+    isActive: !!selectedAnnotation,
+  });
 
   useEffect(() => {
     if (selectedAnnotationId) {
@@ -69,12 +76,27 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
     }
   }, [selectedAnnotationId, annotations, activeLanguageCode]);
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     viewerDispatch({
       type: "updateSelectedAnnotation",
       selectedAnnotationId: null,
     });
-  };
+  }, [viewerDispatch]);
+
+  // Handle escape key from focus trap
+  useEffect(() => {
+    const handleEscapeEvent = () => {
+      onClose();
+    };
+
+    const container = focusTrapRef.current;
+    if (container) {
+      container.addEventListener("focustrap:escape", handleEscapeEvent);
+      return () => {
+        container.removeEventListener("focustrap:escape", handleEscapeEvent);
+      };
+    }
+  }, [focusTrapRef, onClose]);
 
   // Don't show panel if no annotation is selected
   if (!selectedAnnotation) {
@@ -83,13 +105,18 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
 
   return (
     <Panel
+      ref={focusTrapRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="panel-title"
+      tabIndex={0}
       css={{
         borderColor:
           configOptions.annotationOverlays?.highlightedBackgroundColor,
       }}
     >
       <PanelHeader>
-        <PanelTitle>
+        <PanelTitle id="panel-title">
           <div
             dangerouslySetInnerHTML={{
               __html: selectedAnnotationText?.label ?? "",
@@ -97,6 +124,8 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
           ></div>
         </PanelTitle>
         <CloseButton
+          ref={closeButtonRef}
+          aria-label="Close information panel"
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               onClose();
@@ -121,7 +150,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
         </CloseButton>
       </PanelHeader>
       <PanelContent>
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative" }} tabIndex={0}>
           {/* Text */}
           <div
             dangerouslySetInnerHTML={{
