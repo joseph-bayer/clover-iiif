@@ -41,7 +41,7 @@ const Item = styled("button", {
     boxSizing: "inherit",
   },
 
-  "&:hover, &:focus": {
+  "&:hover": {
     backgroundColor: "rgb(61, 17, 13)",
     borderColor: "rgb(224, 89, 42)",
     svg: {
