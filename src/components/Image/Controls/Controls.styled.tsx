@@ -28,7 +28,7 @@ const Wrapper = styled("div", {
         right: "1rem",
 
         "@sm": {
-          top: "1rem",
+          top: "178px",
           right: "1rem",
         },
       },
