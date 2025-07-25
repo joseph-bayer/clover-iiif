@@ -12,10 +12,34 @@ import {
 } from "src/context/viewer-context";
 import { OsdSvgOverlay } from "src/lib/openseadragon-svg";
 import { parseAnnotationTarget } from "src/lib/annotation-helpers";
+import { css } from "src/styles/stitches.config";
 
 import { ParsedAnnotationTarget } from "src/types/annotations";
 import { getImageServiceURI } from "src/lib/iiif";
 import { OpenSeadragonImageTypes } from "src/types/open-seadragon";
+
+// Create Stitches CSS classes for overlay components
+const overlayButtonClass = css({
+  position: "absolute",
+  borderRadius: "50%",
+  border: "none",
+  cursor: "pointer",
+  outline: "none",
+  transition: "$all",
+
+  "&:focus": {
+    transition: "none",
+    outline: "2px solid #60a5fa",
+    outlineOffset: "2px",
+  },
+});
+
+const overlayButtonInnerClass = css({
+  position: "absolute",
+  borderRadius: "50%",
+  border: "2px solid white",
+  zIndex: "1",
+});
 
 export function addOverlaysToViewer(
   viewer: OpenSeadragon.Viewer,
@@ -31,7 +55,7 @@ export function addOverlaysToViewer(
   const scale = 1 / canvas.width;
 
   annotations.forEach((annotation) => {
-    if (!annotation.target) return;
+    if (!annotation?.target) return;
 
     const parsedAnnotationTarget = parseAnnotationTarget(annotation.target);
     const { point, rect, svg } = parsedAnnotationTarget;
@@ -161,13 +185,11 @@ function addPointOverlay(
   // Fixed size for the overlay (in pixels)
   const overlaySize = 20; // Example size in pixels
 
-  // Create a div for the overlay
+  // Create a button for the overlay
   const overlayElement = document.createElement("button");
   overlayElement.style.width = `calc(${overlaySize}px + (${borderWidth}))`;
   overlayElement.style.height = `calc(${overlaySize}px + (${borderWidth}))`;
-  overlayElement.style.borderRadius = "50%"; // Make it a circle
-  overlayElement.style.position = "absolute";
-  overlayElement.className = overlaySelector;
+  overlayElement.className = `${overlaySelector} ${overlayButtonClass()}`;
   overlayElement.id = annotation.id;
   overlayElement.addEventListener("click", () => {
     handleAnnotationClickCallback(annotation.id);
@@ -180,15 +202,12 @@ function addPointOverlay(
 
   // Create the inner element
   const innerElement = document.createElement("div");
-  innerElement.style.position = "absolute";
+  innerElement.className = overlayButtonInnerClass();
   innerElement.style.width = `${overlaySize}px`;
   innerElement.style.height = `${overlaySize}px`;
   innerElement.style.backgroundColor = backgroundColor as string;
   innerElement.style.top = `calc(${borderWidth} / 2)`;
   innerElement.style.left = `calc(${borderWidth} / 2)`;
-  innerElement.style.borderRadius = "50%";
-  innerElement.style.border = "2px solid white";
-  innerElement.style.zIndex = "1";
 
   // Apply highlighted/not-highlighted styles
   if (annotation.id === selectedAnnotationId) {

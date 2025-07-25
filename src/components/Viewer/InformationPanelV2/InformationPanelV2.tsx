@@ -4,6 +4,7 @@ import {
   CloseIcon,
   Panel,
   PanelContent,
+  PanelContentWrapper,
   PanelHeader,
   PanelTitle,
 } from "src/components/Viewer/InformationPanelV2/InformationPanelV2.styled";
@@ -150,7 +151,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
         </CloseButton>
       </PanelHeader>
       <PanelContent>
-        <div style={{ position: "relative" }} tabIndex={0}>
+        <PanelContentWrapper style={{ position: "relative" }} tabIndex={0}>
           {/* Text */}
           <div
             dangerouslySetInnerHTML={{
@@ -181,7 +182,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
               )}
             </>
           )}
-        </div>
+        </PanelContentWrapper>
       </PanelContent>
     </Panel>
   );

@@ -18,6 +18,11 @@ const Panel = styled("div", {
   height: "fit-content",
   boxShadow: "black 0px 0px 8px 0px",
 
+  "&:focus": {
+    outline: "2px solid #60a5fa",
+    outlineOffset: "2px",
+  },
+
   "@sm": {
     width: "50%",
     left: "15px",
@@ -47,6 +52,13 @@ const PanelContent = styled("div", {
   paddingBottom: "20px",
   flex: "1 1 auto",
   minHeight: 0,
+});
+
+const PanelContentWrapper = styled("div", {
+  "&:focus": {
+    outline: "2px solid #60a5fa",
+    outlineOffset: "2px",
+  },
 });
 
 const CloseButton = styled("button", {
@@ -102,6 +114,7 @@ export {
   PanelHeader,
   PanelTitle,
   PanelContent,
+  PanelContentWrapper,
   CloseButton,
   CloseIcon,
   CaptionText,
