@@ -78,19 +78,24 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   }, [selectedAnnotationId, annotations, activeLanguageCode]);
 
   const onClose = useCallback(() => {
-    // Return focus to the annotation point that opened this panel
-    if (selectedAnnotationId) {
-      const annotationButton = document.getElementById(selectedAnnotationId);
-      if (annotationButton) {
-        console.log("focusing");
-        annotationButton.focus();
-      }
-    }
+    // Store the annotation ID before clearing it
+    const currentAnnotationId = selectedAnnotationId;
 
     viewerDispatch({
       type: "updateSelectedAnnotation",
       selectedAnnotationId: null,
     });
+
+    // Return focus to the annotation point that opened this panel
+    // Use setTimeout to ensure this happens after the dispatch re-render
+    if (currentAnnotationId) {
+      setTimeout(() => {
+        const annotationButton = document.getElementById(currentAnnotationId);
+        if (annotationButton) {
+          annotationButton.focus();
+        }
+      }, 0);
+    }
   }, [viewerDispatch, selectedAnnotationId]);
 
   // Handle escape key from focus trap
@@ -138,6 +143,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
           aria-label="Close information panel"
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
               onClose();
             }
           }}
