@@ -78,11 +78,20 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   }, [selectedAnnotationId, annotations, activeLanguageCode]);
 
   const onClose = useCallback(() => {
+    // Return focus to the annotation point that opened this panel
+    if (selectedAnnotationId) {
+      const annotationButton = document.getElementById(selectedAnnotationId);
+      if (annotationButton) {
+        console.log("focusing");
+        annotationButton.focus();
+      }
+    }
+
     viewerDispatch({
       type: "updateSelectedAnnotation",
       selectedAnnotationId: null,
     });
-  }, [viewerDispatch]);
+  }, [viewerDispatch, selectedAnnotationId]);
 
   // Handle escape key from focus trap
   useEffect(() => {
