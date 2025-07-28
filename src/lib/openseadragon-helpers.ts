@@ -17,7 +17,30 @@ import { css } from "src/styles/stitches.config";
 import { ParsedAnnotationTarget } from "src/types/annotations";
 import { getImageServiceURI } from "src/lib/iiif";
 import { OpenSeadragonImageTypes } from "src/types/open-seadragon";
-import { useGetLabel } from "src/hooks/useGetLabel";
+
+// Helper function to get label from InternationalString
+function getLabel(label: any, language: string = "en"): string | null {
+  if (!label) return null;
+
+  if (typeof label === "string") return label;
+
+  if (!label[language]) {
+    const codes = Object.getOwnPropertyNames(label);
+    if (codes.length > 0 && label[codes[0]]) {
+      return Array.isArray(label[codes[0]])
+        ? label[codes[0]][0]
+        : label[codes[0]];
+    }
+  }
+
+  if (label[language]) {
+    return Array.isArray(label[language])
+      ? label[language][0]
+      : label[language];
+  }
+
+  return null;
+}
 
 // Create Stitches CSS classes for overlay components
 const overlayButtonClass = css({
@@ -196,11 +219,31 @@ function addPointOverlay(
   overlayElement.className = `${overlaySelector} ${overlayButtonClass()}`;
   overlayElement.id = annotation.id;
 
+  // Get the annotation title/label from the body
+  let annotationLabel = "Annotation"; // Default fallback
+  if (Array.isArray(annotation.body)) {
+    const textBody = annotation.body.find(
+      (body: any) =>
+        body.type === "TextualBody" && body.language === languageCode,
+    ) as any;
+    if (textBody?.label) {
+      const extractedLabel = getLabel(textBody.label, languageCode);
+      if (extractedLabel) {
+        annotationLabel = extractedLabel;
+      }
+    }
+  } else if (annotation.body && typeof annotation.body === "object") {
+    const body = annotation.body as any;
+    if (body.type === "TextualBody" && body.label) {
+      const extractedLabel = getLabel(body.label, languageCode);
+      if (extractedLabel) {
+        annotationLabel = extractedLabel;
+      }
+    }
+  }
+
   // Add accessibility attributes
-  overlayElement.setAttribute(
-    "aria-label",
-    annotation?.label?.[languageCode]?.[0] ?? "Annotation",
-  );
+  overlayElement.setAttribute("aria-label", annotationLabel);
   overlayElement.setAttribute("type", "button");
 
   // Add event handlers

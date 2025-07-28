@@ -39,6 +39,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
     isActive: !!selectedAnnotation,
   });
 
+  // Find and set selectedAnnotationText and selectedAnnotationImage
   useEffect(() => {
     if (selectedAnnotationId) {
       const newSelectedAnnotation: any = annotations.find(
