@@ -17,6 +17,7 @@ import { css } from "src/styles/stitches.config";
 import { ParsedAnnotationTarget } from "src/types/annotations";
 import { getImageServiceURI } from "src/lib/iiif";
 import { OpenSeadragonImageTypes } from "src/types/open-seadragon";
+import { useGetLabel } from "src/hooks/useGetLabel";
 
 // Create Stitches CSS classes for overlay components
 const overlayButtonClass = css({
@@ -49,6 +50,7 @@ export function addOverlaysToViewer(
   overlaySelector: string,
   handleAnnotationClickCallback: any,
   selectedAnnotationId?: string,
+  languageCode: string = "en",
 ): void {
   if (!viewer) return;
 
@@ -84,6 +86,7 @@ export function addOverlaysToViewer(
         annotation,
         handleAnnotationClickCallback,
         selectedAnnotationId,
+        languageCode,
       );
     }
 
@@ -171,6 +174,7 @@ function addPointOverlay(
   annotation: Annotation | AnnotationNormalized,
   handleAnnotationClickCallback: any,
   selectedAnnotationId?: string,
+  languageCode: string = "en",
 ) {
   const {
     backgroundColor,
@@ -191,6 +195,15 @@ function addPointOverlay(
   overlayElement.style.height = `calc(${overlaySize}px + (${borderWidth}))`;
   overlayElement.className = `${overlaySelector} ${overlayButtonClass()}`;
   overlayElement.id = annotation.id;
+
+  // Add accessibility attributes
+  overlayElement.setAttribute(
+    "aria-label",
+    annotation?.label?.[languageCode]?.[0] ?? "Annotation",
+  );
+  overlayElement.setAttribute("type", "button");
+
+  // Add event handlers
   overlayElement.addEventListener("click", () => {
     handleAnnotationClickCallback(annotation.id);
   });

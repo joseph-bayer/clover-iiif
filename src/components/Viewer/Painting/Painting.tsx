@@ -41,6 +41,7 @@ const Painting: React.FC<PaintingProps> = ({
     vault,
     viewerId,
     selectedAnnotationId,
+    activeLanguageCode,
   } = useViewerState();
   const dispatch: any = useViewerDispatch();
 
@@ -94,6 +95,7 @@ const Painting: React.FC<PaintingProps> = ({
         "annotation-overlay",
         handleAnnotationClickCallback,
         selectedAnnotationId,
+        activeLanguageCode,
       );
     }
   }, [
@@ -103,6 +105,7 @@ const Painting: React.FC<PaintingProps> = ({
     configOptions,
     selectedAnnotationId,
     handleAnnotationClickCallback,
+    activeLanguageCode,
   ]);
 
   /** Update OpenSeadragon Viewer in viewer context */
