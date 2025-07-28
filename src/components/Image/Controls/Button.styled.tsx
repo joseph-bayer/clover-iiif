@@ -50,9 +50,10 @@ const Item = styled("button", {
     },
   },
 
-  "&:focus": {
+  "&:focus, &:focus-visible": {
     outline: "2px solid #60a5fa",
     outlineOffset: "2px",
+    boxShadow: "inherit",
   },
 
   "&[data-button=rotate-right]": {

@@ -55,6 +55,7 @@ const overlayButtonClass = css({
     transition: "none",
     outline: "2px solid #60a5fa",
     outlineOffset: "2px",
+    boxShadow: "inherit",
   },
 });
 

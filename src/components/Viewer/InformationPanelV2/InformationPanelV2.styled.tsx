@@ -18,7 +18,7 @@ const Panel = styled("div", {
   height: "fit-content",
   boxShadow: "black 0px 0px 8px 0px",
 
-  "&:focus": {
+  "&:focus, &:focus-visible": {
     outline: "2px solid #60a5fa",
     outlineOffset: "2px",
   },
@@ -55,7 +55,7 @@ const PanelContent = styled("div", {
 });
 
 const PanelContentWrapper = styled("div", {
-  "&:focus": {
+  "&:focus, &:focus-visible": {
     outline: "2px solid #60a5fa",
     outlineOffset: "2px",
   },
@@ -79,6 +79,12 @@ const CloseButton = styled("button", {
   "&:hover": {
     backgroundColor: "rgb(61, 17, 13)",
     borderColor: "rgb(224, 89, 42)",
+  },
+
+  "&:focus, &:focus-visible": {
+    outline: "2px solid #60a5fa",
+    outlineOffset: "2px",
+    boxShadow: "inherit",
   },
 });
 
