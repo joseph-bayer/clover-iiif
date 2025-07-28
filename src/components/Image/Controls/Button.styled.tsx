@@ -50,6 +50,11 @@ const Item = styled("button", {
     },
   },
 
+  "&:focus": {
+    outline: "2px solid #60a5fa",
+    outlineOffset: "2px",
+  },
+
   "&[data-button=rotate-right]": {
     "&:hover, &:focus": {
       svg: {
