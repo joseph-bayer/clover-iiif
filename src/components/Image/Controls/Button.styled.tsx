@@ -54,6 +54,7 @@ const Item = styled("button", {
     outline: "2px solid #60a5fa",
     outlineOffset: "2px",
     boxShadow: "inherit",
+    transition: "none",
   },
 
   "&[data-button=rotate-right]": {

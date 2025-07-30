@@ -42,6 +42,7 @@ const Painting: React.FC<PaintingProps> = ({
     viewerId,
     selectedAnnotationId,
     activeLanguageCode,
+    unVaultedIIIFContent,
   } = useViewerState();
   const dispatch: any = useViewerDispatch();
 
@@ -155,6 +156,11 @@ const Painting: React.FC<PaintingProps> = ({
             painting && (
               <ImageViewer
                 _cloverViewerHasPlaceholder={hasPlaceholder}
+                label={
+                  unVaultedIIIFContent?.label?.[
+                    activeLanguageCode ?? "en"
+                  ]?.[0] ?? ""
+                }
                 body={painting[annotationIndex]}
                 instanceId={instanceId}
                 key={instanceId}
