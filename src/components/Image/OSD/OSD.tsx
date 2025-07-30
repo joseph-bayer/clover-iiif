@@ -119,7 +119,7 @@ const OSD: React.FC<OSDProps> = ({
       <Viewport
         id={config.id}
         data-testid="clover-iiif-image-openseadragon-viewport"
-        role="img"
+        role="widget"
         {...(ariaLabel && { "aria-label": ariaLabel })}
       />
     </Wrapper>
