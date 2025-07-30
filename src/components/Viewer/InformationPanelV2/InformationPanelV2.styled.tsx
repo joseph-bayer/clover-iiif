@@ -85,6 +85,7 @@ const CloseButton = styled("button", {
     outline: "2px solid #60a5fa",
     outlineOffset: "2px",
     boxShadow: "inherit",
+    transition: "none",
   },
 });
 
