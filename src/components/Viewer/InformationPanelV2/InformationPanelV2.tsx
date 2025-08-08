@@ -180,7 +180,10 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
             <>
               <Image
                 src={selectedAnnotationImage.id}
-                alt="Annotation"
+                alt={
+                  selectedAnnotationImage.label?.[activeLanguageCode ?? "en"] ??
+                  ""
+                }
                 width={500}
                 height={500}
                 style={{
