@@ -39,6 +39,11 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
     isActive: !!selectedAnnotation,
   });
 
+  // Function to grap smaller versions of images from WP
+  const appendSizeToUrl = (url, size) => {
+    return url.replace(/(\.[a-zA-Z0-9]+)$/, `-${size}$1`);
+  };
+
   // Find and set selectedAnnotationText and selectedAnnotationImage
   useEffect(() => {
     if (selectedAnnotationId) {
@@ -179,7 +184,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
           {selectedAnnotationImage && (
             <>
               <Image
-                src={selectedAnnotationImage.id}
+                src={appendSizeToUrl(selectedAnnotationImage.id, "300x300")} // WARNING: Only works when hosted on WP
                 alt={
                   selectedAnnotationImage.label?.[activeLanguageCode ?? "en"] ??
                   ""
