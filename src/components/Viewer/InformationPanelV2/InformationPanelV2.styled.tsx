@@ -49,7 +49,6 @@ const PanelContent = styled("div", {
   position: "relative",
   overflowY: "auto",
   paddingRight: "10px",
-  paddingBottom: "20px",
   flex: "1 1 auto",
   minHeight: 0,
 });
@@ -111,7 +110,6 @@ const CaptionText = styled("div", {
   fontWeight: "400",
   fontSize: "16px",
   fontStyle: "italic",
-  lineHeight: "100%",
   letterSpacing: "0%",
   marginTop: "1rem",
 });

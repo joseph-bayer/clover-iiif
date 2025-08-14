@@ -193,7 +193,8 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
                   borderRadius: "5px",
                 }}
               />
-              {selectedAnnotationImage.label && (
+              {!!selectedAnnotationImage.label?.[activeLanguageCode ?? "en"]
+                ?.length && (
                 <CaptionText>
                   {selectedAnnotationImage.label[activeLanguageCode ?? "en"] ??
                     ""}
