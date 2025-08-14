@@ -43,6 +43,7 @@ const PanelTitle = styled("div", {
   fontWeight: "600",
   fontSize: "20px",
   paddingRight: "60px", // Space for close button
+  wordWrap: "break-word", // prevent overlapping close button on mobile when browser zoom is on
 });
 
 const PanelContent = styled("div", {
