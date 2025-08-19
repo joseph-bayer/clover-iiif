@@ -31,6 +31,8 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
   const [selectedAnnotationImage, setSelectedAnnotationImage] = useState<
     any | null
   >(null);
+  const [selectedAnnotationImageAltText, setSelectedAnnotationImageAltText] =
+    useState<string | null>(null);
   const viewerDispatch: any = useViewerDispatch();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -52,13 +54,14 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
       );
       setSelectedAnnotation(newSelectedAnnotation ?? null);
       if (newSelectedAnnotation) {
+        let image: any = null;
         if (Array.isArray(newSelectedAnnotation.body)) {
           const text = newSelectedAnnotation.body.find(
             (body) =>
               body.type === "TextualBody" &&
               body.language === activeLanguageCode,
           );
-          const image = newSelectedAnnotation.body.find(
+          image = newSelectedAnnotation.body.find(
             (body) => body.type === "Image",
           );
           setSelectedAnnotationText(text ?? null);
@@ -68,12 +71,24 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
             newSelectedAnnotation.body.type === "TextualBody"
               ? newSelectedAnnotation.body.value
               : null;
-          const image =
+          image =
             newSelectedAnnotation.body.type === "Image"
               ? newSelectedAnnotation.body
               : null;
           setSelectedAnnotationText(text ?? null);
           setSelectedAnnotationImage(image ?? null);
+        }
+        // NOTE: Hack to split english and spanish alt text.
+        // Backend must separate English and Spanish alt text with a pipe "|".
+        // This issue is due to the "accessibility" field only supporting string and string arrays instead of objects.
+        const imageEnglishAltText =
+          image?.accessibility?.split("|")[0]?.trim() ?? null;
+        const imageSpanishAltText =
+          image?.accessibility?.split("|")[1]?.trim() ?? null;
+        if (activeLanguageCode === "en") {
+          setSelectedAnnotationImageAltText(imageEnglishAltText);
+        } else {
+          setSelectedAnnotationImageAltText(imageSpanishAltText);
         }
       }
     } else {
@@ -185,10 +200,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
             <>
               <Image
                 src={appendSizeToUrl(selectedAnnotationImage.id, "300x300")} // WARNING: Only works when hosted on WP
-                alt={
-                  selectedAnnotationImage.label?.[activeLanguageCode ?? "en"] ??
-                  ""
-                }
+                alt={selectedAnnotationImageAltText || ""}
                 width={500}
                 height={500}
                 style={{
