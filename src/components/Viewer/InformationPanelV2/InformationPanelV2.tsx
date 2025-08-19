@@ -199,7 +199,7 @@ export const InformationPanelV2: React.FC<InformationPanelV2Props> = ({
           {selectedAnnotationImage && (
             <>
               <Image
-                src={appendSizeToUrl(selectedAnnotationImage.id, "300x300")} // WARNING: Only works when hosted on WP
+                src={appendSizeToUrl(selectedAnnotationImage.id, "500x500")} // WARNING: Only works when hosted on WP
                 alt={selectedAnnotationImageAltText || ""}
                 width={500}
                 height={500}
